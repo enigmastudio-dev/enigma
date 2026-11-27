@@ -72,6 +72,10 @@ button,input,select,textarea{font:inherit}
 .hero-art .rotor{position:absolute;left:50%;top:2%;height:96%;width:auto;max-width:100%;aspect-ratio:1;transform:translateX(-50%);color:var(--hi);opacity:.07;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 38%,transparent 62%);mask-image:linear-gradient(180deg,#000 0%,#000 38%,transparent 62%)}
 .hero-art .glow{position:absolute;left:22%;top:14%;width:46%;height:70%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 45%,transparent),transparent)}
 /* Team art: flush with the left edge of the screen, fading out at the bottom */
+/* Solid silhouette behind the art: the background stars never show through the characters' faded bodies */
+.hero-art::after{content:"";position:absolute;top:0;left:calc(-1 * var(--off));width:calc(100% + var(--off));aspect-ratio:1280/853;background:var(--bg);pointer-events:none;
+  -webkit-mask:url(../assets/team-hero.webp) left top/100% 100% no-repeat,linear-gradient(180deg,#000 88%,transparent);-webkit-mask-composite:source-in;mask:url(../assets/team-hero.webp) left top/100% 100% no-repeat,linear-gradient(180deg,#000 88%,transparent);mask-composite:intersect}
+.hero-art .hero-team{z-index:1}
 .hero-art{--off:calc(max(0px,(100vw - 1360px) / 2) + max(16px,min(4vw,40px)))}
 .hero-art .hero-team{position:relative;display:block;margin-left:calc(-1 * var(--off));width:calc(100% + var(--off));height:auto;max-width:none;
   -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 62%,rgba(0,0,0,.45) 85%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 62%,rgba(0,0,0,.45) 85%,transparent 100%)}
