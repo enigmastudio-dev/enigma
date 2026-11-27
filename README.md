@@ -85,5 +85,6 @@ insert into public.admins (email) values ('admin2@contoh.com');
 
 - **Domain sendiri:** Vercel → Settings → Domains.
 - **Gambar galeri:** isi "Link gambar" dengan URL gambar yang sudah diunggah, misalnya dari Supabase Storage (bucket publik).
-- **Font Space Age:** pastikan studio punya lisensi komersial. Kalau tidak, hapus `assets/space-age.ttf`; judul otomatis memakai Orbitron.
+- **Font:** Space Age (font utama: judul, nama tim, logo) dan Montserrat dari Google Fonts (font kedua: teks bacaan, menu, label, harga). Diatur lewat `--f-title` dan `--f-body` di `css/site.css`.
+- **Lisensi Space Age:** file font hanya bertuliskan "Distribute freely" tanpa izin komersial yang jelas. Pastikan studio punya lisensi komersial. Kalau tidak, hapus `assets/space-age.ttf`; judul otomatis memakai Montserrat.
 - **Notifikasi request:** belum ada email otomatis. Cek menu Request masuk secara berkala, atau minta dibuatkan notifikasi email/Discord sebagai langkah berikutnya.
