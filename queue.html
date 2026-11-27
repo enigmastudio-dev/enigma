@@ -10,6 +10,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="css/site.css">
 <script>try{var t=localStorage.getItem("enigma-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script>
+/* Page slide direction: compare the nav position of the page we came from and the one we are on. */
+(function(){var O={"":0,"index":0,"team":1,"gallery":2,"gallery-illustrations":2.5,"prices":3,"queue":4,"toggles":5,"tos":6,"faq":7,"contact":8};
+function pos(u){try{var p=new URL(u).pathname.split("/").pop().replace(/\.html$/,"");return p in O?O[p]:null}catch(e){return null}}
+addEventListener("pagereveal",function(e){var vt=e.viewTransition;if(!vt)return;var a=window.navigation&&navigation.activation;
+var f=a&&a.from?pos(a.from.url):null,t=a&&a.entry?pos(a.entry.url):null;
+if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forward":"back")});})();
+</script>
 </head>
 <body data-page="queue">
 
