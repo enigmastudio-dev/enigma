@@ -63,7 +63,7 @@ button,input,select,textarea{font:inherit}
 .nav-links a[aria-current="page"],.nav-links a:hover{color:var(--hi)}
 .logo{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--hi)}
 .logo b{font-family:var(--f-title);font-weight:400;font-size:18px;line-height:1.1;text-align:right;letter-spacing:.04em}
-.logo i{width:60px;height:60px;border-radius:50%;background:var(--accent);border:1.5px solid var(--accent);display:grid;place-items:center;overflow:hidden}
+.logo i{width:60px;height:60px;border-radius:50%;background:var(--accent);border:1.5px solid #fff;display:grid;place-items:center;overflow:hidden}
 .logo i img{display:block;width:100%;height:100%;object-fit:cover}
 
 /* hero */
@@ -231,7 +231,7 @@ button,input,select,textarea{font:inherit}
 .footer nav a{color:var(--soft2)}
 .footer b{font-family:var(--f-title);font-weight:400}
 .float-contact{position:fixed;left:max(20px,env(safe-area-inset-left,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));z-index:20;display:grid;justify-items:center;gap:4px;text-decoration:none}
-.float-contact i{width:64px;height:64px;border-radius:50%;background:#2B1FD0;border:1.5px solid var(--accent);overflow:hidden;box-shadow:0 6px 18px rgba(59,40,232,.4)}
+.float-contact i{width:64px;height:64px;border-radius:50%;background:#2B1FD0;border:1.5px solid #fff;overflow:hidden;box-shadow:0 6px 18px rgba(59,40,232,.4)}
 .float-contact i img{display:block;width:100%;height:100%;object-fit:cover}
 .float-contact b{font-family:var(--f-hud);font-weight:700;font-size:12px;letter-spacing:.1em;color:var(--hi);text-shadow:0 1px 6px var(--bg)}
 .theme-btn{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));z-index:20;width:60px;height:60px;border-radius:50%;border:1px solid var(--border-strong);background:var(--inv);color:var(--on-inv);display:grid;place-items:center;cursor:pointer;}
