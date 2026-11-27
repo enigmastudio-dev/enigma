@@ -247,6 +247,8 @@ main{view-transition-name:page}
 header{view-transition-name:site-header}
 .float-contact{view-transition-name:fab}
 .theme-btn{view-transition-name:theme-btn}
+/* logo outlines: white in dark mode, black in light mode */
+:root[data-theme="light"] .logo i,:root[data-theme="light"] .float-contact i{border-color:#000}
 .theme-btn svg{width:20px;height:20px}
 @media (max-width:600px){.theme-btn svg{width:18px;height:18px}}
 ::view-transition-old(root),::view-transition-new(root),::view-transition-group(page),::view-transition-group(page-foot){animation:none}
