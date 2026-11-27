@@ -69,7 +69,7 @@ button,input,select,textarea{font:inherit}
 /* hero */
 .hero{position:relative;min-height:560px;display:flex;flex-wrap:wrap;align-items:center;gap:0 24px;padding-top:24px}
 .hero-art{position:relative;flex:1.3 1 440px;min-width:0;align-self:stretch;min-height:480px}
-.hero-art .rotor{position:absolute;left:50%;top:2%;height:96%;width:auto;max-width:100%;aspect-ratio:1;transform:translateX(-50%);color:var(--hi);opacity:.07}
+.hero-art .rotor{position:absolute;left:50%;top:2%;height:96%;width:auto;max-width:100%;aspect-ratio:1;transform:translateX(-50%);color:var(--hi);opacity:.07;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 38%,transparent 62%);mask-image:linear-gradient(180deg,#000 0%,#000 38%,transparent 62%)}
 .hero-art .glow{position:absolute;left:22%;top:14%;width:46%;height:70%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 45%,transparent),transparent)}
 /* Team art: flush with the left edge of the screen, fading out at the bottom */
 .hero-art{--off:calc(max(0px,(100vw - 1360px) / 2) + max(16px,min(4vw,40px)))}
