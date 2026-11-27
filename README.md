@@ -80,7 +80,7 @@ insert into public.admins (email) values ('admin2@contoh.com');
 - **Request masuk:** semua kiriman form di halaman Contact tampil di sini. Ganti status atau hapus langsung, tanpa tombol Simpan.
 - **Bagian lain:** ubah isinya, lalu tekan **Simpan & terbitkan**. Pengunjung melihat isi baru saat membuka atau memuat ulang halaman. Tidak perlu deploy ulang.
 - **Backup:** unduh file JSON sebelum perubahan besar.
-
+ 
 ## Catatan
 
 - **Domain sendiri:** Vercel → Settings → Domains.
