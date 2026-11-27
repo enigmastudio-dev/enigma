@@ -33,10 +33,10 @@
   /* ---------- static-ish sections ---------- */
   function renderStatus() {
     var s = C.status;
-    if (!$("statusText")) return;
+    if ($("tagline")) $("tagline").textContent = s.tagline;
+    if (!$("statusText")) return;   // status pill removed from the hero; kept here in case it returns
     $("statusText").textContent = s.open ? s.openText : s.closedText;
     $("statusPill").classList.toggle("closed", !s.open);
-    $("tagline").textContent = s.tagline;
   }
 
   function renderTeam() {
