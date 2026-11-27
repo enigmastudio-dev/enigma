@@ -62,7 +62,7 @@ button,input,select,textarea{font:inherit}
 .nav-links a[aria-current="page"],.nav-links a:hover{color:var(--hi)}
 .logo{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--hi)}
 .logo b{font-weight:800;font-size:22px;line-height:1;text-align:right;letter-spacing:.02em}
-.logo i{width:60px;height:60px;border-radius:50%;background:var(--accent);border:1.5px solid var(--hi);display:grid;place-items:center;overflow:hidden}
+.logo i{width:60px;height:60px;border-radius:50%;background:var(--accent);border:1.5px solid var(--accent);display:grid;place-items:center;overflow:hidden}
 .logo i img{display:block;width:100%;height:100%;object-fit:cover}
 
 /* hero */
