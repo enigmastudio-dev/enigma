@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact Us · Enigma Studio</title>
+<meta name="description" content="Send a commission request to Enigma Studio. We reply within 48 hours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Cormorant+SC:wght@600;700&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="css/site.css">
+<script>try{var t=localStorage.getItem("enigma-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body data-page="contact">
+
+<header class="wrap">
+  <nav class="nav" aria-label="Main">
+    <div class="nav-links"><a href="index.html">HOME</a><a href="team.html">OUR TEAM</a><a href="gallery.html">GALLERY</a><a href="prices.html">PRICE</a><a href="queue.html">QUEUE</a><a href="toggles.html">TOGGLES</a><a href="tos.html">TOS</a><a href="faq.html">FAQ</a><a href="contact.html" aria-current="page">CONTACT US</a></div>
+    <a class="logo" href="index.html"><b>ENIGMA<br>STUDIO</b><i><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24"><path fill="#fff" d="M12 0C13 8 16 11 24 12 16 13 13 16 12 24 11 16 8 13 0 12 8 11 11 8 12 0Z"/></svg></i></a>
+  </nav>
+</header>
+
+<main>
+    <section id="contact" class="band">
+    <div class="wrap section contact">
+      <div class="contact-side">
+        <span class="eyebrow">◇ CONTACT US</span>
+        <h1 class="h2">Request Form</h1>
+        <p class="lead">Tell us about your character. We reply with a quote and a start date within 48 hours.</p>
+        <div class="socials" id="socials"></div>
+        <span class="mono" style="font-size:13px;color:var(--muted2)" id="contactText"></span>
+      </div>
+
+      <div class="form hidden" id="formDone" role="status" style="align-content:center;justify-items:start">
+        <span class="eyebrow">◇ FILE RECEIVED</span>
+        <h3 class="h2" style="font-size:clamp(32px,4vw,48px)">Thank you!</h3>
+        <p class="lead">Your request is in. We reply with a quote and a start date within 48 hours. Nothing is charged until you accept the quote.</p>
+        <button type="button" class="btn" id="formAgain">Send another request</button>
+      </div>
+
+      <form class="form" id="requestForm" novalidate>
+        <p class="hidden"><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label></p>
+        <input type="hidden" name="estimate" id="estimateField">
+        <div class="est"><span><small>FROM THE PRICE BUILDER</small><strong id="formSummary"></strong></span><a href="prices.html" id="estEdit" style="font-weight:600;font-size:14px;color:var(--accent-text)">Edit</a></div>
+        <div class="f2">
+          <div class="field"><label for="rq-name">Your name or handle</label><input id="rq-name" name="name" type="text" placeholder="e.g. Mika" required></div>
+          <div class="field"><label for="rq-contact">Email or Discord</label><input id="rq-contact" name="contact" type="text" placeholder="Where should we reply?" required></div>
+        </div>
+        <fieldset>
+          <legend>Preferred artist</legend>
+          <div class="radios">
+            <label><input type="radio" name="artist" value="a" checked> <span data-name="a">DYRAVE</span></label>
+            <label><input type="radio" name="artist" value="b"> <span data-name="b">AXNONS</span></label>
+            <label><input type="radio" name="artist" value="x"> <span data-name="x">XYN</span> (rig only)</label>
+            <label><input type="radio" name="artist" value="match"> Match me</label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="rq-refs">Reference link (Google Drive, Imgur, Pinterest board)</label><input id="rq-refs" name="references" type="url" placeholder="https://"></div>
+        <div class="field"><label for="rq-notes">Tell us about your character</label><textarea id="rq-notes" name="notes" rows="4" placeholder="Personality, pose ideas, mood, toggles you want…"></textarea></div>
+        <label class="check"><input type="checkbox" name="agree_tos" required style="width:18px;height:18px;margin-top:2px"> I have read the Terms of Service.</label>
+        <p class="note" id="formErr" role="alert" style="color:var(--red)"></p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px">
+          <button type="submit" class="btn btn-solid" id="formSubmit" style="min-height:52px;padding:0 30px">Send request</button>
+          <span style="font-size:13.5px;color:var(--muted2)">You won't be charged until you accept our quote.</span>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span style="display:flex;align-items:center;gap:12px"><b style="color:var(--hi);letter-spacing:.04em">ENIGMA STUDIO</b><span class="mono" style="font-size:12px">© <span id="year">2026</span> · All rights reserved</span></span>
+    <nav aria-label="Footer" id="footLinks"></nav>
+  </div>
+</footer>
+
+<a class="float-contact" href="contact.html" aria-label="Contact us"><i><img src="assets/mascot.webp" alt=""></i><b>CONTACT US</b></a>
+<button type="button" class="theme-btn" id="themeBtn" aria-label="Switch to light theme"></button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/config.js"></script>
+<script src="/api/config"></script>
+<script src="js/content-default.js"></script>
+<script src="js/store.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

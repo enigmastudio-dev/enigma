@@ -1,8 +1,11 @@
-/* Public page: renders everything from the saved content. */
+/* Public pages: each page renders only the sections it contains, from the saved content. */
 (function () {
   var C = null;                       // current content
-  var st = { gal: "v", svc: "ill", art: "a", tier: 1, add: {}, faq: 0 };
+  var st = { gal: document.body.dataset.gal || "v", svc: "ill", art: "a", tier: 1, add: {}, faq: 0 };
   var $ = function (id) { return document.getElementById(id); };
+  var EST_KEY = "enigma-estimate";    // carries the price builder result to the contact page
+  var readEst = function () { try { return JSON.parse(sessionStorage.getItem(EST_KEY) || "null"); } catch (e) { return null; } };
+  var writeEst = function (v) { try { sessionStorage.setItem(EST_KEY, JSON.stringify(v)); } catch (e) {} };
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
   var safeUrl = function (u) { u = String(u || "").trim(); return /^(https?:|mailto:)/i.test(u) ? u : ""; };
   var COLOR = { a: "var(--c-a)", b: "var(--c-b)", x: "var(--c-x)" };
@@ -30,12 +33,14 @@
   /* ---------- static-ish sections ---------- */
   function renderStatus() {
     var s = C.status;
+    if (!$("statusText")) return;
     $("statusText").textContent = s.open ? s.openText : s.closedText;
     $("statusPill").classList.toggle("closed", !s.open);
     $("tagline").textContent = s.tagline;
   }
 
   function renderTeam() {
+    if (!$("teamGrid")) return;
     var files = { a: "◇ FILE A · ILLUSTRATOR", b: "◇ FILE B · ILLUSTRATOR", x: "◇ FILE C · LIVE2D RIGGER" };
     $("teamGrid").innerHTML = ["a", "b", "x"].map(function (k) {
       var m = C.team[k], n = String(m.name || "");
@@ -46,12 +51,12 @@
         '<span class="member-role">' + esc(m.role) + '</span></div>' +
         '<p class="member-bio">' + esc(m.bio) + '</p>' +
         '<div class="tags">' + tags(m.tags).map(function (t) { return "<span>" + esc(t) + "</span>"; }).join("") + '</div>' +
-        '<a class="btn btn-solid" style="border-radius:12px" href="#price" data-pick="' + k + '">' + (k === "x" ? "Price a rig with " : "Price a piece by ") + esc(title(n)) + '</a></div></article>';
+        '<a class="btn btn-solid" style="border-radius:12px" href="prices.html#artist-' + k + '">' + (k === "x" ? "Price a rig with " : "Price a piece by ") + esc(title(n)) + '</a></div></article>';
     }).join("");
   }
 
   function renderGallery() {
-    document.querySelectorAll("[data-gal]").forEach(function (b) { b.setAttribute("aria-selected", String(b.dataset.gal === st.gal)); });
+    if (!$("galGrid")) return;
     $("galGrid").innerHTML = (C.gallery[st.gal] || []).map(function (g, i) {
       var by = nameOf(g.artist) + (g.rig && g.artist !== "x" ? " × " + nameOf("x") : "");
       var img = safeUrl(g.img);
@@ -62,6 +67,7 @@
   }
 
   function renderQueue() {
+    if (!$("board")) return;
     var q = ($("findNo").value || "").trim().replace(/^#/, "").toLowerCase();
     var found = null;
     $("board").innerHTML = (C.queue || []).map(function (col) {
@@ -81,6 +87,7 @@
 
   function renderToggles() {
     var T = C.toggles;
+    if (!$("togGrid")) return;
     $("togIntro").textContent = T.intro;
     $("togPrices").innerHTML = (T.pricing || []).map(function (p) { return "<div><span>" + esc(p.label) + "</span><strong>" + esc(p.price) + "</strong></div>"; }).join("");
     $("togGrid").innerHTML = (T.items || []).map(function (t, i) {
@@ -90,6 +97,7 @@
   }
 
   function renderTos() {
+    if (!$("tosGrid")) return;
     $("tosGrid").innerHTML = (C.tos || []).map(function (t) { return '<div class="tos-card"><h3>' + esc(t.title) + '</h3><p>' + esc(t.body) + '</p></div>'; }).join("");
     var u = safeUrl(C.links.tosUrl);
     $("tosLink").classList.toggle("hidden", !u);
@@ -97,6 +105,7 @@
   }
 
   function renderFaq() {
+    if (!$("faqList")) return;
     $("faqList").innerHTML = (C.faq || []).map(function (f, i) {
       var open = st.faq === i + 1;
       return '<div class="faq-item"><button type="button" aria-expanded="' + open + '" data-faq="' + (i + 1) + '">' + esc(f.q) + '<span aria-hidden="true">' + (open ? "−" : "+") + '</span></button>' + (open ? "<p>" + esc(f.a) + "</p>" : "") + '</div>';
@@ -114,10 +123,10 @@
     if (d) items.push({ k: "discord", label: "Discord", href: d });
     if (t) items.push({ k: "twitter", label: "X / Twitter", href: t });
     if (e) items.push({ k: "email", label: "Email", href: "mailto:" + e });
-    $("socials").innerHTML = items.map(function (i) { return '<a href="' + esc(i.href) + '" aria-label="' + i.label + '"' + (i.k === "email" ? "" : ' target="_blank" rel="noopener"') + '>' + ICON[i.k] + '</a>'; }).join("");
+    if ($("socials")) $("socials").innerHTML = items.map(function (i) { return '<a href="' + esc(i.href) + '" aria-label="' + i.label + '"' + (i.k === "email" ? "" : ' target="_blank" rel="noopener"') + '>' + ICON[i.k] + '</a>'; }).join("");
     var text = [c.discordHandle ? "Discord: " + c.discordHandle : "", c.twitterHandle ? "X: " + c.twitterHandle : "", e].filter(Boolean).join(" · ");
-    $("contactText").textContent = text;
-    $("footLinks").innerHTML = items.filter(function (i) { return i.k !== "email"; }).map(function (i) { return '<a href="' + esc(i.href) + '" target="_blank" rel="noopener">' + i.label + '</a>'; }).join("") + '<a href="#tos">TOS</a>';
+    if ($("contactText")) $("contactText").textContent = text;
+    $("footLinks").innerHTML = items.filter(function (i) { return i.k !== "email"; }).map(function (i) { return '<a href="' + esc(i.href) + '" target="_blank" rel="noopener">' + i.label + '</a>'; }).join("") + '<a href="tos.html">TOS</a><a href="faq.html">FAQ</a>';
     document.querySelectorAll("[data-name]").forEach(function (el) { el.textContent = nameOf(el.dataset.name); });
   }
 
@@ -136,6 +145,7 @@
   }
 
   function renderBuilder() {
+    if (!$("svcOpts")) return;
     var P = C.prices;
     var SV = [
       { id: "ill", name: "Illustration", desc: "Bust-up to full body, by " + title(nameOf("a")) + " or " + title(nameOf("b")) },
@@ -193,31 +203,41 @@
     $("sumPay").textContent = total < 100 ? "Paid in full upfront" : st.svc === "ill" ? "50% now · 50% before files" : "3 payments of ~" + money(Math.ceil(total / 3));
     var who = isRig ? title(nameOf("x")) : title(nameOf(key)) + (st.svc === "pkg" ? " × " + title(nameOf("x")) : "");
     var summary = tier.name + " · " + who + " · est. " + money(total);
-    $("formSummary").textContent = summary;
-    $("estimateField").value = svcName + " | " + summary + (lines.length ? " | add-ons: " + lines.map(function (l) { return l.label; }).join(", ") : "");
+    writeEst({ summary: summary, estimate: svcName + " | " + summary + (lines.length ? " | add-ons: " + lines.map(function (l) { return l.label; }).join(", ") : "") });
+  }
+
+  // Contact page: show the estimate built on the price page, if any.
+  function renderEstimate() {
+    if (!$("formSummary")) return;
+    var e = readEst();
+    $("formSummary").textContent = e ? e.summary : "No estimate yet";
+    $("estimateField").value = e ? e.estimate : "";
+    $("estEdit").textContent = e ? "Edit" : "Build one";
+  }
+
+  // Price page opened from a team card: prices.html#artist-a / -b / -x
+  function applyPick() {
+    var m = /^#artist-([abx])$/.exec(location.hash || "");
+    if (!m) return;
+    if (m[1] === "x") { st.svc = "rig"; st.tier = 0; st.add = {}; }
+    else { st.art = m[1]; st.svc = "ill"; st.tier = 1; }
   }
 
   /* ---------- events ---------- */
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-svc],[data-art],[data-tier],[data-add],[data-gal],[data-faq],[data-pick]");
-    if (!t) return;
+    var t = e.target.closest("[data-svc],[data-art],[data-tier],[data-add],[data-faq]");
+    if (!t || !C) return;
     if (t.dataset.svc) { st.svc = t.dataset.svc; st.tier = st.svc === "ill" ? 1 : 0; st.add = {}; renderBuilder(); }
     else if (t.dataset.art) { st.art = t.dataset.art; renderBuilder(); }
     else if (t.dataset.tier) { st.tier = +t.dataset.tier; renderBuilder(); }
     else if (t.dataset.add) { st.add[t.dataset.add] = !st.add[t.dataset.add]; renderBuilder(); }
-    else if (t.dataset.gal) { st.gal = t.dataset.gal; renderGallery(); }
     else if (t.dataset.faq) { var n = +t.dataset.faq; st.faq = st.faq === n ? 0 : n; renderFaq(); }
-    else if (t.dataset.pick) {
-      if (t.dataset.pick === "x") { st.svc = "rig"; st.tier = 0; st.add = {}; }
-      else { st.art = t.dataset.pick; if (st.svc === "rig") { st.svc = "ill"; st.tier = 1; } }
-      renderBuilder();
-    }
   });
-  $("findNo").addEventListener("input", renderQueue);
+  if ($("findNo")) $("findNo").addEventListener("input", function () { if (C) renderQueue(); });
 
   /* ---------- request form → Supabase table "requests" ---------- */
   var form = $("requestForm");
-  form.addEventListener("submit", async function (e) {
+  if (form) form.addEventListener("submit", async function (e) {
     e.preventDefault();
     var fd = new FormData(form), err = $("formErr");
     err.textContent = "";
@@ -235,17 +255,18 @@
         notes: String(fd.get("notes") || "").slice(0, 4000), estimate: String(fd.get("estimate") || "").slice(0, 500)
       });
       form.reset(); form.classList.add("hidden"); $("formDone").classList.remove("hidden");
-      renderBuilder();
+      renderEstimate();
     } catch (ex) {
       console.warn(ex);
       err.textContent = "Your request could not be sent. Please try again, or message us on Discord or email.";
     }
     btn.disabled = false; btn.textContent = "Send request";
   });
-  $("formAgain").addEventListener("click", function () { $("formDone").classList.add("hidden"); form.classList.remove("hidden"); });
+  if ($("formAgain")) $("formAgain").addEventListener("click", function () { $("formDone").classList.add("hidden"); form.classList.remove("hidden"); });
 
   function renderAll() {
-    renderStatus(); renderTeam(); renderGallery(); renderBuilder(); renderQueue(); renderToggles(); renderTos(); renderFaq(); renderContact();
+    applyPick();
+    renderStatus(); renderTeam(); renderGallery(); renderBuilder(); renderQueue(); renderToggles(); renderTos(); renderFaq(); renderContact(); renderEstimate();
   }
 
   $("year").textContent = new Date().getFullYear();

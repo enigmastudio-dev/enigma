@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Team · Enigma Studio</title>
+<meta name="description" content="Meet the Enigma Studio team: two illustrators and one Live2D rigger.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Cormorant+SC:wght@600;700&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="css/site.css">
+<script>try{var t=localStorage.getItem("enigma-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body data-page="team">
+
+<header class="wrap">
+  <nav class="nav" aria-label="Main">
+    <div class="nav-links"><a href="index.html">HOME</a><a href="team.html" aria-current="page">OUR TEAM</a><a href="gallery.html">GALLERY</a><a href="prices.html">PRICE</a><a href="queue.html">QUEUE</a><a href="toggles.html">TOGGLES</a><a href="tos.html">TOS</a><a href="faq.html">FAQ</a><a href="contact.html">CONTACT US</a></div>
+    <a class="logo" href="index.html"><b>ENIGMA<br>STUDIO</b><i><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24"><path fill="#fff" d="M12 0C13 8 16 11 24 12 16 13 13 16 12 24 11 16 8 13 0 12 8 11 11 8 12 0Z"/></svg></i></a>
+  </nav>
+</header>
+
+<main>
+    <section id="team" class="band">
+    <div class="wrap section">
+      <div style="display:grid;gap:12px;justify-items:center;text-align:center">
+        <span class="eyebrow">◇ OUR TEAM</span>
+        <h2 class="h2">Meet the decoders</h2>
+        <p class="lead">Two illustrators with their own signature style, and one rigger who brings both to life.</p>
+      </div>
+      <div class="team-grid" id="teamGrid"></div>
+    </div>
+  </section>
+
+  
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span style="display:flex;align-items:center;gap:12px"><b style="color:var(--hi);letter-spacing:.04em">ENIGMA STUDIO</b><span class="mono" style="font-size:12px">© <span id="year">2026</span> · All rights reserved</span></span>
+    <nav aria-label="Footer" id="footLinks"></nav>
+  </div>
+</footer>
+
+<a class="float-contact" href="contact.html" aria-label="Contact us"><i><img src="assets/mascot.webp" alt=""></i><b>CONTACT US</b></a>
+<button type="button" class="theme-btn" id="themeBtn" aria-label="Switch to light theme"></button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/config.js"></script>
+<script src="/api/config"></script>
+<script src="js/content-default.js"></script>
+<script src="js/store.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

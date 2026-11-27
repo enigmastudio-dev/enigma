@@ -14,13 +14,20 @@ Hosting di **Vercel**, data dan login di **Supabase**. Selama Supabase belum ter
 
 | File | Fungsi |
 |---|---|
-| `index.html` | Halaman utama untuk pengunjung |
+| `index.html` | Home: hero dan kartu menuju tiap halaman |
+| `team.html` | Our Team (`/team`) |
+| `gallery.html`, `gallery-illustrations.html` | Gallery tab Vtuber (`/gallery`) dan Illustrations (`/gallery-illustrations`) |
+| `prices.html` | Price builder (`/prices`); estimasi dibawa otomatis ke form Contact |
+| `queue.html` | Antrean, cari nomor order (`/queue`) |
+| `toggles.html` | Expressions & toggles (`/toggles`) |
+| `tos.html`, `faq.html` | Terms of Service (`/tos`) dan FAQ (`/faq`) |
+| `contact.html` | Form request (`/contact`) |
 | `admin.html` | Panel admin (dibuka di `/admin`) |
 | `api/config.js` | Vercel Function: membaca kunci Supabase dari Environment Variables |
 | `vercel.json` | Pengaturan Vercel (URL bersih, `/admin` tidak diindeks Google) |
 | `js/config.js` | Isian manual kunci Supabase, hanya kalau tidak memakai Vercel |
 | `js/content-default.js` | Isi awal / contoh |
-| `js/store.js`, `js/site.js`, `js/admin.js` | Logika situs, form, dan panel |
+| `js/store.js`, `js/site.js`, `js/admin.js` | Logika situs, form, dan panel (`site.js` dipakai semua halaman publik dan hanya mengisi bagian yang ada di halaman itu) |
 | `css/site.css` | Tampilan (tema gelap/terang) |
 | `assets/` | Maskot dan font Space Age |
 | `supabase/setup.sql` | Skrip pembuatan tabel dan aturan akses |
@@ -70,7 +77,7 @@ insert into public.admins (email) values ('admin2@contoh.com');
 
 ## Memakai panel admin
 
-- **Request masuk:** semua kiriman form tampil di sini. Ganti status atau hapus langsung, tanpa tombol Simpan.
+- **Request masuk:** semua kiriman form di halaman Contact tampil di sini. Ganti status atau hapus langsung, tanpa tombol Simpan.
 - **Bagian lain:** ubah isinya, lalu tekan **Simpan & terbitkan**. Pengunjung melihat isi baru saat membuka atau memuat ulang halaman. Tidak perlu deploy ulang.
 - **Backup:** unduh file JSON sebelum perubahan besar.
 

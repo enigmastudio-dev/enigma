@@ -11,21 +11,17 @@
 <link rel="stylesheet" href="css/site.css">
 <script>try{var t=localStorage.getItem("enigma-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 </head>
-<body>
+<body data-page="home">
 
 <header class="wrap">
   <nav class="nav" aria-label="Main">
-    <div class="nav-links">
-      <a href="#home">HOME</a><a href="#team">OUR TEAM</a><a href="#gallery">GALLERY</a><a href="#price">PRICE</a>
-      <a href="#queue">QUEUE</a><a href="#toggles">TOGGLES</a><a href="#tos">TOS</a><a href="#contact">CONTACT US</a>
-    </div>
-    <a class="logo" href="#home"><b>ENIGMA<br>STUDIO</b><i><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24"><path fill="#fff" d="M12 0C13 8 16 11 24 12 16 13 13 16 12 24 11 16 8 13 0 12 8 11 11 8 12 0Z"/></svg></i></a>
+    <div class="nav-links"><a href="index.html" aria-current="page">HOME</a><a href="team.html">OUR TEAM</a><a href="gallery.html">GALLERY</a><a href="prices.html">PRICE</a><a href="queue.html">QUEUE</a><a href="toggles.html">TOGGLES</a><a href="tos.html">TOS</a><a href="faq.html">FAQ</a><a href="contact.html">CONTACT US</a></div>
+    <a class="logo" href="index.html"><b>ENIGMA<br>STUDIO</b><i><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24"><path fill="#fff" d="M12 0C13 8 16 11 24 12 16 13 13 16 12 24 11 16 8 13 0 12 8 11 11 8 12 0Z"/></svg></i></a>
   </nav>
 </header>
 
 <main>
-  <!-- HERO -->
-  <section id="home" class="wrap hero">
+    <section id="home" class="wrap hero">
     <div class="hero-art">
       <div class="rotor" aria-hidden="true">
         <svg viewBox="-100 -100 200 200" style="width:100%;height:100%;display:block">
@@ -44,147 +40,19 @@
     </div>
   </section>
 
-  <!-- TEAM -->
-  <section id="team" class="band">
+  
+
+  <section id="explore" class="band">
     <div class="wrap section">
-      <div style="display:grid;gap:12px;justify-items:center;text-align:center">
-        <span class="eyebrow">◇ OUR TEAM</span>
-        <h2 class="h2">Meet the decoders</h2>
-        <p class="lead">Two illustrators with their own signature style, and one rigger who brings both to life.</p>
+      <div style="display:grid;gap:12px"><span class="eyebrow">◇ EXPLORE</span><h2 class="h2">Open a file</h2></div>
+      <div class="explore-grid">
+        <a class="explore-card" href="team.html"><small>◇ OUR TEAM</small><b>Meet the decoders</b><span>Two illustrators and one Live2D rigger.</span><i aria-hidden="true">→</i></a>
+        <a class="explore-card" href="gallery.html"><small>◇ GALLERY</small><b>Case files</b><span>VTuber models and illustrations we have made.</span><i aria-hidden="true">→</i></a>
+        <a class="explore-card" href="prices.html"><small>◇ PRICE</small><b>Build your file</b><span>Pick a service, an artist, and a tier to see your estimate.</span><i aria-hidden="true">→</i></a>
+        <a class="explore-card" href="queue.html"><small>◇ QUEUE</small><b>Work Queue?</b><span>Find your order number to see which stage it is in.</span><i aria-hidden="true">→</i></a>
+        <a class="explore-card" href="toggles.html"><small>◇ TOGGLES</small><b>Expressions &amp; toggles</b><span>Extra looks you switch on stream with a hotkey.</span><i aria-hidden="true">→</i></a>
+        <a class="explore-card" href="contact.html"><small>◇ CONTACT US</small><b>Request Form</b><span>Tell us about your character. We reply within 48 hours.</span><i aria-hidden="true">→</i></a>
       </div>
-      <div class="team-grid" id="teamGrid"></div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section id="gallery" class="wrap section">
-    <div class="head">
-      <div><span class="eyebrow">◇ GALLERY</span><h2 class="h2">Case files</h2></div>
-      <div class="tabs" role="tablist" aria-label="Gallery category">
-        <button type="button" role="tab" aria-selected="true" data-gal="v">Vtuber</button>
-        <button type="button" role="tab" aria-selected="false" data-gal="i">Illustrations</button>
-      </div>
-    </div>
-    <div class="gal-grid" id="galGrid"></div>
-  </section>
-
-  <!-- PRICE -->
-  <section id="price" class="band">
-    <div class="wrap section">
-      <div style="display:grid;gap:12px;max-width:720px">
-        <span class="eyebrow">◇ PRICE</span>
-        <h2 class="h2">Build your file</h2>
-        <p class="lead">Choose a service, an artist, and a tier to see your estimate in USD. Your final quote comes after we read your brief.</p>
-      </div>
-      <div class="builder">
-        <div class="steps">
-          <fieldset class="step"><legend>01 · SERVICE</legend><div class="opt-grid" id="svcOpts"></div></fieldset>
-          <fieldset class="step"><legend id="step2Title">02 · ARTIST</legend><div id="step2"></div></fieldset>
-          <fieldset class="step"><legend>03 · TIER</legend><div style="display:grid;gap:12px" id="tierOpts"></div></fieldset>
-          <fieldset class="step"><legend>04 · ADD-ONS</legend><div class="chips" id="addOpts"></div><p class="note">Percent add-ons are calculated from the tier price.</p></fieldset>
-        </div>
-        <aside class="summary" aria-label="Your estimate" aria-live="polite">
-          <div class="top">
-            <div class="line"><span class="tag">◇ YOUR FILE · DRAFT</span><span class="mono muted" id="sumCode"></span></div>
-            <b style="font-size:26px;line-height:1.1" id="sumSvc"></b>
-            <div style="display:flex;flex-wrap:wrap;gap:8px" id="sumTeam"></div>
-          </div>
-          <div id="sumLines"></div>
-          <div class="total">
-            <div class="line" style="align-items:baseline"><span class="muted">Estimated total</span><span class="big" id="sumTotal"></span></div>
-            <div class="line muted" style="font-size:13.5px"><span>Turnaround</span><strong id="sumDays" style="color:var(--on-inv)"></strong></div>
-            <div class="line muted" style="font-size:13.5px"><span>Payment</span><strong id="sumPay" style="color:var(--on-inv);text-align:right"></strong></div>
-            <a class="cta" href="#contact">Request this file</a>
-            <span class="muted" style="font-size:12.5px;line-height:1.5">Estimate only. Nothing is charged until you accept the final quote.</span>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- QUEUE -->
-  <section id="queue" class="wrap section">
-    <div class="head">
-      <div style="max-width:680px"><span class="eyebrow">◇ QUEUE</span><h2 class="h2">Work Queue?</h2><p class="lead">Find your order number to see which stage it is in.</p></div>
-      <div class="find">
-        <label class="hidden" for="findNo">Order number</label>
-        <input id="findNo" type="search" placeholder="Order number, e.g. #0142">
-        <a class="btn hidden" id="trelloBtn" href="#" target="_blank" rel="noopener">Open Trello board →</a>
-      </div>
-    </div>
-    <p class="note" id="findMsg" aria-live="polite"></p>
-    <div class="board"><div class="board-grid" id="board"></div></div>
-  </section>
-
-  <!-- TOGGLES -->
-  <section id="toggles" class="band">
-    <div class="wrap section tog">
-      <div class="tog-side">
-        <span class="eyebrow">◇ TOGGLES</span>
-        <h2 class="h2">Expressions &amp; toggles</h2>
-        <p class="lead" id="togIntro"></p>
-        <div class="price-box" id="togPrices"></div>
-      </div>
-      <div class="tog-grid" id="togGrid"></div>
-    </div>
-  </section>
-
-  <!-- TOS + FAQ -->
-  <section id="tos" class="wrap section" style="gap:56px">
-    <div style="display:grid;gap:28px">
-      <div class="head"><div><span class="eyebrow">◇ TOS</span><h2 class="h2">Terms of service</h2></div><a id="tosLink" class="hidden" href="#" target="_blank" rel="noopener" style="font-weight:600;color:var(--accent-text)">Read the full TOS →</a></div>
-      <div class="tos-grid" id="tosGrid"></div>
-    </div>
-    <div id="faq" class="faq">
-      <div style="flex:1 1 280px;display:grid;gap:12px;align-content:start"><span class="eyebrow">◇ FAQ</span><h2 class="h2" style="font-size:clamp(34px,4.4vw,56px)">Questions</h2></div>
-      <div class="faq-list" id="faqList"></div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="band">
-    <div class="wrap section contact">
-      <div class="contact-side">
-        <span class="eyebrow">◇ CONTACT US</span>
-        <h2 class="h2">Request Form</h2>
-        <p class="lead">Tell us about your character. We reply with a quote and a start date within 48 hours.</p>
-        <div class="socials" id="socials"></div>
-        <span class="mono" style="font-size:13px;color:var(--muted2)" id="contactText"></span>
-      </div>
-
-      <div class="form hidden" id="formDone" role="status" style="align-content:center;justify-items:start">
-        <span class="eyebrow">◇ FILE RECEIVED</span>
-        <h3 class="h2" style="font-size:clamp(32px,4vw,48px)">Thank you!</h3>
-        <p class="lead">Your request is in. We reply with a quote and a start date within 48 hours. Nothing is charged until you accept the quote.</p>
-        <button type="button" class="btn" id="formAgain">Send another request</button>
-      </div>
-
-      <form class="form" id="requestForm" novalidate>
-        <p class="hidden"><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label></p>
-        <input type="hidden" name="estimate" id="estimateField">
-        <div class="est"><span><small>FROM THE PRICE BUILDER</small><strong id="formSummary"></strong></span><a href="#price" style="font-weight:600;font-size:14px;color:var(--accent-text)">Edit</a></div>
-        <div class="f2">
-          <div class="field"><label for="rq-name">Your name or handle</label><input id="rq-name" name="name" type="text" placeholder="e.g. Mika" required></div>
-          <div class="field"><label for="rq-contact">Email or Discord</label><input id="rq-contact" name="contact" type="text" placeholder="Where should we reply?" required></div>
-        </div>
-        <fieldset>
-          <legend>Preferred artist</legend>
-          <div class="radios">
-            <label><input type="radio" name="artist" value="a" checked> <span data-name="a">DYRAVE</span></label>
-            <label><input type="radio" name="artist" value="b"> <span data-name="b">AXNONS</span></label>
-            <label><input type="radio" name="artist" value="x"> <span data-name="x">XYN</span> (rig only)</label>
-            <label><input type="radio" name="artist" value="match"> Match me</label>
-          </div>
-        </fieldset>
-        <div class="field"><label for="rq-refs">Reference link (Google Drive, Imgur, Pinterest board)</label><input id="rq-refs" name="references" type="url" placeholder="https://"></div>
-        <div class="field"><label for="rq-notes">Tell us about your character</label><textarea id="rq-notes" name="notes" rows="4" placeholder="Personality, pose ideas, mood, toggles you want…"></textarea></div>
-        <label class="check"><input type="checkbox" name="agree_tos" required style="width:18px;height:18px;margin-top:2px"> I have read the Terms of Service.</label>
-        <p class="note" id="formErr" role="alert" style="color:var(--red)"></p>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px">
-          <button type="submit" class="btn btn-solid" id="formSubmit" style="min-height:52px;padding:0 30px">Send request</button>
-          <span style="font-size:13.5px;color:var(--muted2)">You won't be charged until you accept our quote.</span>
-        </div>
-      </form>
     </div>
   </section>
 </main>
@@ -196,7 +64,7 @@
   </div>
 </footer>
 
-<a class="float-contact" href="#contact" aria-label="Contact us"><i><img src="assets/mascot.webp" alt=""></i><b>CONTACT US</b></a>
+<a class="float-contact" href="contact.html" aria-label="Contact us"><i><img src="assets/mascot.webp" alt=""></i><b>CONTACT US</b></a>
 <button type="button" class="theme-btn" id="themeBtn" aria-label="Switch to light theme"></button>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
