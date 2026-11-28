@@ -11,11 +11,11 @@
   --teal-bg:rgba(60,193,179,.10); --teal-text:#9BE7DE;
   --c-a:#8FA6F5; --c-b:#E0566B; --c-x:#3CC1B3;
   --tint-a:linear-gradient(180deg,#2A3150,#18161E); --tint-b:linear-gradient(180deg,#3A1820,#18161E); --tint-x:linear-gradient(180deg,#123A37,#18161E);
-  /* Type: Space Age = primary (headings, names, brand). Montserrat = secondary (everything else). */
+  /* Type: Space Age only for the studio name (hero title, header logo, footer). Montserrat for everything else. */
   --f-title:"Space Age","Montserrat",sans-serif;
   --f-body:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-hud:var(--f-body);
-  --f-serif:var(--f-title);
+  --f-serif:var(--f-body);
   --f-mono:var(--f-body);
   color-scheme:dark;
 }
@@ -46,7 +46,7 @@ button,input,select,textarea{font:inherit}
 .band{border-top:1px solid var(--line);background:var(--bg2)}
 .section{padding-block:clamp(48px,6vw,72px);display:grid;gap:28px}
 .eyebrow{font-family:var(--f-hud);font-weight:700;font-size:12.5px;letter-spacing:.2em;color:var(--accent-text)}
-.h2{margin:0;font-family:var(--f-title);font-weight:400;font-size:clamp(30px,4.2vw,54px);line-height:1.1;letter-spacing:.02em;color:var(--hi);text-wrap:balance}
+.h2{margin:0;font-family:var(--f-body);font-weight:800;font-size:clamp(30px,4vw,50px);line-height:1.1;letter-spacing:-.01em;color:var(--hi);text-wrap:balance}
 .lead{margin:0;font-size:17px;line-height:1.5;color:var(--muted);max-width:60ch}
 .head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px}
 .head > div{display:grid;gap:8px}
@@ -95,7 +95,7 @@ button,input,select,textarea{font:inherit}
 .explore-card{position:relative;display:grid;gap:8px;align-content:start;min-height:150px;padding:24px 24px 48px;border:1px solid var(--border);border-radius:0 0 32px 0;background:var(--card);text-decoration:none;color:var(--hi);transition:border-color .2s}
 .explore-card:hover{border-color:var(--border-strong)}
 .explore-card small{font-family:var(--f-hud);font-weight:600;font-size:12px;letter-spacing:.16em;color:var(--accent-text)}
-.explore-card b{font-family:var(--f-title);font-weight:400;font-size:20px;line-height:1.2;letter-spacing:.02em}
+.explore-card b{font-family:var(--f-body);font-weight:800;font-size:21px;line-height:1.2;letter-spacing:-.005em}
 .explore-card span{font-size:15px;line-height:1.5;color:var(--muted)}
 .explore-card i{position:absolute;right:24px;bottom:16px;font-style:normal;font-size:22px;color:var(--accent-text)}
 
@@ -107,7 +107,7 @@ button,input,select,textarea{font:inherit}
 .member-art .file{position:absolute;left:16px;top:16px;background:var(--inv);color:var(--on-inv);font-family:var(--f-hud);font-weight:700;font-size:12px;letter-spacing:.16em;padding:4px 8px}
 .member-art .slots{position:absolute;right:16px;top:16px;padding:4px 10px;border-radius:999px;background:var(--green-bg);color:var(--green);font-size:12px;font-weight:600}
 .member-body{padding:20px 24px 24px;display:grid;gap:10px}
-.member-name{font-family:var(--f-title);font-weight:400;font-size:30px;line-height:1.1;letter-spacing:.03em;color:var(--hi)}
+.member-name{font-family:var(--f-body);font-weight:800;font-size:28px;line-height:1.1;letter-spacing:.04em;color:var(--hi)}
 .member-role{font-size:14px;color:var(--muted2)}
 .member-bio{margin:0;font-size:15px;line-height:1.5;color:var(--soft)}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
@@ -144,7 +144,7 @@ button,input,select,textarea{font:inherit}
 .artist-opt{padding:0;overflow:hidden}
 .artist-opt .swatch{display:block;height:8px;background:var(--sel)}
 .artist-opt .in{padding:14px 16px;display:grid;gap:6px}
-.artist-opt .an{font-family:var(--f-title);font-weight:400;font-size:22px;line-height:1.1;letter-spacing:.03em}
+.artist-opt .an{font-family:var(--f-body);font-weight:800;font-size:20px;line-height:1.1;letter-spacing:.04em}
 .tier{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}
 .tier .tmain{flex:1 1 260px;min-width:0;display:grid;gap:4px}
 .tier .tprice{display:grid;gap:2px;justify-items:end;text-align:right}
