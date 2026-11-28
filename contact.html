@@ -4,7 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Contact Us · Enigma Studio</title>
-<meta name="description" content="Send a commission request to Enigma Studio. We reply within 48 hours.">
+<meta name="description" content="Send a commission request to Enigma Studio. Share your character, references, and preferred artist. We reply with a quote and start date within 48 hours.">
+<link rel="canonical" href="https://enigma-iota-bice.vercel.app/contact">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enigma Studio">
+<meta property="og:title" content="Contact Us · Enigma Studio">
+<meta property="og:description" content="Send a commission request to Enigma Studio. Share your character, references, and preferred artist. We reply with a quote and start date within 48 hours.">
+<meta property="og:url" content="https://enigma-iota-bice.vercel.app/contact">
+<meta property="og:image" content="https://enigma-iota-bice.vercel.app/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
@@ -23,8 +35,9 @@ if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forwa
 
 <header class="wrap">
   <nav class="nav" aria-label="Main">
-    <div class="nav-links"><a href="index.html">HOME</a><a href="team.html">OUR TEAM</a><a href="gallery.html">GALLERY</a><a href="prices.html">PRICE</a><a href="queue.html">QUEUE</a><a href="toggles.html">TOGGLES</a><a href="tos.html">TOS</a><a href="faq.html">FAQ</a><a href="contact.html" aria-current="page">CONTACT US</a></div>
-    <a class="logo" href="index.html"><b>ENIGMA<br>STUDIO</b><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i></a>
+    <div class="nav-links" id="navLinks"><a href="/">HOME</a><a href="/team">OUR TEAM</a><a href="/gallery">GALLERY</a><a href="/prices">PRICE</a><a href="/queue">QUEUE</a><a href="/toggles">TOGGLES</a><a href="/tos">TOS</a><a href="/faq">FAQ</a><a href="/contact" aria-current="page">CONTACT US</a></div>
+    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <a class="logo" href="/"><b>ENIGMA<br>STUDIO</b><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i></a>
   </nav>
 </header>
 
@@ -34,7 +47,7 @@ if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forwa
       <div class="contact-side">
         <span class="eyebrow">◇ CONTACT US</span>
         <h1 class="h2">Request Form</h1>
-        <p class="lead">Tell us about your character. We reply with a quote and a start date within 48 hours.</p>
+        <p class="lead">Tell us about your character. We reply with a quote and a start date within 48 hours (we work on GMT+7).</p>
         <div class="socials" id="socials"></div>
         <span class="mono" style="font-size:13px;color:var(--muted2)" id="contactText"></span>
       </div>
@@ -46,10 +59,11 @@ if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forwa
         <button type="button" class="btn" id="formAgain">Send another request</button>
       </div>
 
+      <p class="closed-banner hidden" id="closedBanner" role="status"></p>
       <form class="form" id="requestForm" novalidate>
         <p class="hidden"><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label></p>
         <input type="hidden" name="estimate" id="estimateField">
-        <div class="est"><span><small>FROM THE PRICE BUILDER</small><strong id="formSummary"></strong></span><a href="prices.html" id="estEdit" style="font-weight:600;font-size:14px;color:var(--accent-text)">Edit</a></div>
+        <div class="est"><span><small>FROM THE PRICE BUILDER</small><strong id="formSummary"></strong></span><a href="/prices" id="estEdit" style="font-weight:600;font-size:14px;color:var(--accent-text)">Edit</a></div>
         <div class="f2">
           <div class="field"><label for="rq-name">Your name or handle</label><input id="rq-name" name="name" type="text" placeholder="e.g. Mika" required></div>
           <div class="field"><label for="rq-contact">Email or Discord</label><input id="rq-contact" name="contact" type="text" placeholder="Where should we reply?" required></div>
@@ -65,7 +79,7 @@ if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forwa
         </fieldset>
         <div class="field"><label for="rq-refs">Reference link (Google Drive, Imgur, Pinterest board)</label><input id="rq-refs" name="references" type="url" placeholder="https://"></div>
         <div class="field"><label for="rq-notes">Tell us about your character</label><textarea id="rq-notes" name="notes" rows="4" placeholder="Personality, pose ideas, mood, toggles you want…"></textarea></div>
-        <label class="check"><input type="checkbox" name="agree_tos" required style="width:18px;height:18px;margin-top:2px"> I have read the Terms of Service.</label>
+        <label class="check"><input type="checkbox" name="agree_tos" required style="width:18px;height:18px;margin-top:2px"> I have read the <a href="/tos" target="_blank" rel="noopener" style="color:var(--accent-text)">Terms of Service</a>.</label>
         <p class="note" id="formErr" role="alert" style="color:var(--red)"></p>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px">
           <button type="submit" class="btn btn-solid" id="formSubmit" style="min-height:52px;padding:0 30px">Send request</button>
@@ -83,7 +97,7 @@ if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forwa
   </div>
 </footer>
 
-<a class="float-contact" href="contact.html" aria-label="Contact us"><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i><b>CONTACT US</b></a>
+<a class="float-contact" href="/contact" aria-label="Contact us"><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i><b>CONTACT US</b></a>
 <button type="button" class="theme-btn" id="themeBtn" aria-label="Switch to light theme"></button>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>

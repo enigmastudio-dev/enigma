@@ -4,7 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Enigma Studio · Commissions</title>
-<meta name="description" content="Enigma Studio: anime character illustrations and Live2D VTuber models. See prices, queue, and request a commission.">
+<meta name="description" content="Enigma Studio makes Live2D VTuber models and anime illustrations. Two illustrators and an in-house rigger. See prices, the work queue, and send a request.">
+<link rel="canonical" href="https://enigma-iota-bice.vercel.app/">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enigma Studio">
+<meta property="og:title" content="Enigma Studio · Commissions">
+<meta property="og:description" content="Enigma Studio makes Live2D VTuber models and anime illustrations. Two illustrators and an in-house rigger. See prices, the work queue, and send a request.">
+<meta property="og:url" content="https://enigma-iota-bice.vercel.app/">
+<meta property="og:image" content="https://enigma-iota-bice.vercel.app/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
@@ -23,8 +35,9 @@ if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forwa
 
 <header class="wrap">
   <nav class="nav" aria-label="Main">
-    <div class="nav-links"><a href="index.html" aria-current="page">HOME</a><a href="team.html">OUR TEAM</a><a href="gallery.html">GALLERY</a><a href="prices.html">PRICE</a><a href="queue.html">QUEUE</a><a href="toggles.html">TOGGLES</a><a href="tos.html">TOS</a><a href="faq.html">FAQ</a><a href="contact.html">CONTACT US</a></div>
-    <a class="logo" href="index.html"><b>ENIGMA<br>STUDIO</b><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i></a>
+    <div class="nav-links" id="navLinks"><a href="/" aria-current="page">HOME</a><a href="/team">OUR TEAM</a><a href="/gallery">GALLERY</a><a href="/prices">PRICE</a><a href="/queue">QUEUE</a><a href="/toggles">TOGGLES</a><a href="/tos">TOS</a><a href="/faq">FAQ</a><a href="/contact">CONTACT US</a></div>
+    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <a class="logo" href="/"><b>ENIGMA<br>STUDIO</b><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i></a>
   </nav>
 </header>
 
@@ -44,6 +57,11 @@ if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forwa
     <div class="hero-copy">
       <h1>Enigma Studio</h1>
       <p id="tagline">Every character holds a secret. We draw it out.</p>
+      <p class="hero-sub">Live2D VTuber models and anime illustrations. Two illustrators and an in-house rigger, from first sketch to debut.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="/contact">Request a commission</a>
+        <a class="btn" href="/prices">See prices</a>
+      </div>
     </div>
   </section>
 
@@ -53,12 +71,12 @@ if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forwa
     <div class="wrap section">
       <div style="display:grid;gap:8px"><span class="eyebrow">◇ EXPLORE</span><h2 class="h2">Open a file</h2></div>
       <div class="explore-grid">
-        <a class="explore-card" href="team.html"><small>◇ OUR TEAM</small><b>Meet the decoders</b><span>Two illustrators and one Live2D rigger.</span><i aria-hidden="true">→</i></a>
-        <a class="explore-card" href="gallery.html"><small>◇ GALLERY</small><b>Case files</b><span>VTuber models and illustrations we have made.</span><i aria-hidden="true">→</i></a>
-        <a class="explore-card" href="prices.html"><small>◇ PRICE</small><b>Build your file</b><span>Pick a service, an artist, and a tier to see your estimate.</span><i aria-hidden="true">→</i></a>
-        <a class="explore-card" href="queue.html"><small>◇ QUEUE</small><b>Work Queue?</b><span>Find your order number to see which stage it is in.</span><i aria-hidden="true">→</i></a>
-        <a class="explore-card" href="toggles.html"><small>◇ TOGGLES</small><b>Expressions &amp; toggles</b><span>Extra looks you switch on stream with a hotkey.</span><i aria-hidden="true">→</i></a>
-        <a class="explore-card" href="contact.html"><small>◇ CONTACT US</small><b>Request Form</b><span>Tell us about your character. We reply within 48 hours.</span><i aria-hidden="true">→</i></a>
+        <a class="explore-card" href="/team"><small>◇ OUR TEAM</small><b>Meet the decoders</b><span>Two illustrators and one Live2D rigger.</span><i aria-hidden="true">→</i></a>
+        <a class="explore-card" href="/gallery"><small>◇ GALLERY</small><b>Case files</b><span>VTuber models and illustrations we have made.</span><i aria-hidden="true">→</i></a>
+        <a class="explore-card" href="/prices"><small>◇ PRICE</small><b>Build your file</b><span>Pick a service, an artist, and a tier to see your estimate.</span><i aria-hidden="true">→</i></a>
+        <a class="explore-card" href="/queue"><small>◇ QUEUE</small><b>Work Queue?</b><span>Find your order number to see which stage it is in.</span><i aria-hidden="true">→</i></a>
+        <a class="explore-card" href="/toggles"><small>◇ TOGGLES</small><b>Expressions &amp; toggles</b><span>Extra looks you switch on stream with a hotkey.</span><i aria-hidden="true">→</i></a>
+        <a class="explore-card" href="/contact"><small>◇ CONTACT US</small><b>Request Form</b><span>Tell us about your character. We reply within 48 hours.</span><i aria-hidden="true">→</i></a>
       </div>
     </div>
   </section>
@@ -71,7 +89,7 @@ if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forwa
   </div>
 </footer>
 
-<a class="float-contact" href="contact.html" aria-label="Contact us"><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i><b>CONTACT US</b></a>
+<a class="float-contact" href="/contact" aria-label="Contact us"><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i><b>CONTACT US</b></a>
 <button type="button" class="theme-btn" id="themeBtn" aria-label="Switch to light theme"></button>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>

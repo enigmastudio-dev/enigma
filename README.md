@@ -88,3 +88,11 @@ insert into public.admins (email) values ('admin2@contoh.com');
 - **Font:** Space Age (font utama: judul, nama tim, logo) dan Montserrat dari Google Fonts (font kedua: teks bacaan, menu, label, harga). Diatur lewat `--f-title` dan `--f-body` di `css/site.css`.
 - **Lisensi Space Age:** file font hanya bertuliskan "Distribute freely" tanpa izin komersial yang jelas. Pastikan studio punya lisensi komersial. Kalau tidak, hapus `assets/space-age.ttf`; judul otomatis memakai Montserrat.
 - **Notifikasi request:** belum ada email otomatis. Cek menu Request masuk secara berkala, atau minta dibuatkan notifikasi email/Discord sebagai langkah berikutnya.
+
+## SEO, preview link, dan domain
+
+- `robots.txt`, `sitemap.xml`, dan `404.html` ada di akar folder. `assets/og.jpg` dipakai sebagai gambar preview saat link dibagikan, `assets/favicon-32.png` dan `assets/apple-touch-icon.png` sebagai ikon tab.
+- Semua link internal memakai alamat bersih (`/team`, `/prices`, ...). `cleanUrls` di `vercel.json` mengalihkan alamat lama `.html` ke alamat bersih.
+- Alamat lengkap `https://enigma-iota-bice.vercel.app` tertulis di tag canonical, og:url, og:image (semua halaman publik), `robots.txt`, dan `sitemap.xml`. Kalau nanti memakai domain sendiri, ganti alamat itu di semua tempat tersebut.
+- `.vercelignore` mencegah `README.md` dan folder `supabase/` ikut tayang di web.
+- Kartu ToS PRIVACY dan AI USE ditulis langsung di `tos.html`, jadi tidak bisa diubah dari panel admin.

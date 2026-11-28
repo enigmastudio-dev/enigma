@@ -4,7 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Toggles · Enigma Studio</title>
-<meta name="description" content="Expressions, toggles, and props for your Live2D model.">
+<meta name="description" content="Expressions, toggles, and props for Live2D VTuber models by Enigma Studio. See what each add-on does on stream and add the ones you want to your model order.">
+<link rel="canonical" href="https://enigma-iota-bice.vercel.app/toggles">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enigma Studio">
+<meta property="og:title" content="Toggles · Enigma Studio">
+<meta property="og:description" content="Expressions, toggles, and props for Live2D VTuber models by Enigma Studio. See what each add-on does on stream and add the ones you want to your model order.">
+<meta property="og:url" content="https://enigma-iota-bice.vercel.app/toggles">
+<meta property="og:image" content="https://enigma-iota-bice.vercel.app/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
@@ -23,8 +35,9 @@ if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forwa
 
 <header class="wrap">
   <nav class="nav" aria-label="Main">
-    <div class="nav-links"><a href="index.html">HOME</a><a href="team.html">OUR TEAM</a><a href="gallery.html">GALLERY</a><a href="prices.html">PRICE</a><a href="queue.html">QUEUE</a><a href="toggles.html" aria-current="page">TOGGLES</a><a href="tos.html">TOS</a><a href="faq.html">FAQ</a><a href="contact.html">CONTACT US</a></div>
-    <a class="logo" href="index.html"><b>ENIGMA<br>STUDIO</b><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i></a>
+    <div class="nav-links" id="navLinks"><a href="/">HOME</a><a href="/team">OUR TEAM</a><a href="/gallery">GALLERY</a><a href="/prices">PRICE</a><a href="/queue">QUEUE</a><a href="/toggles" aria-current="page">TOGGLES</a><a href="/tos">TOS</a><a href="/faq">FAQ</a><a href="/contact">CONTACT US</a></div>
+    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <a class="logo" href="/"><b>ENIGMA<br>STUDIO</b><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i></a>
   </nav>
 </header>
 
@@ -51,7 +64,7 @@ if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forwa
   </div>
 </footer>
 
-<a class="float-contact" href="contact.html" aria-label="Contact us"><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i><b>CONTACT US</b></a>
+<a class="float-contact" href="/contact" aria-label="Contact us"><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i><b>CONTACT US</b></a>
 <button type="button" class="theme-btn" id="themeBtn" aria-label="Switch to light theme"></button>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>

@@ -34,6 +34,9 @@
   function renderStatus() {
     var s = C.status;
     if ($("tagline")) $("tagline").textContent = s.tagline;
+    // Price and Contact pages: show the closed notice only while commissions are closed
+    var cb = $("closedBanner");
+    if (cb) { cb.textContent = s.closedText; cb.classList.toggle("hidden", !!s.open); }
     if (!$("statusText")) return;   // status pill removed from the hero; kept here in case it returns
     $("statusText").textContent = s.open ? s.openText : s.closedText;
     $("statusPill").classList.toggle("closed", !s.open);
@@ -51,7 +54,7 @@
         '<span class="member-role">' + esc(m.role) + '</span></div>' +
         '<p class="member-bio">' + esc(m.bio) + '</p>' +
         '<div class="tags">' + tags(m.tags).map(function (t) { return "<span>" + esc(t) + "</span>"; }).join("") + '</div>' +
-        '<a class="btn btn-solid" style="border-radius:12px" href="prices.html#artist-' + k + '">' + (k === "x" ? "Price a rig with " : "Price a piece by ") + esc(title(n)) + '</a></div></article>';
+        '<a class="btn btn-solid" style="border-radius:12px" href="/prices#artist-' + k + '">' + (k === "x" ? "Price a rig with " : "Price a piece by ") + esc(title(n)) + '</a></div></article>';
     }).join("");
   }
 
@@ -126,7 +129,7 @@
     if ($("socials")) $("socials").innerHTML = items.map(function (i) { return '<a href="' + esc(i.href) + '" aria-label="' + i.label + '"' + (i.k === "email" ? "" : ' target="_blank" rel="noopener"') + '>' + ICON[i.k] + '</a>'; }).join("");
     var text = [c.discordHandle ? "Discord: " + c.discordHandle : "", c.twitterHandle ? "X: " + c.twitterHandle : "", e].filter(Boolean).join(" · ");
     if ($("contactText")) $("contactText").textContent = text;
-    $("footLinks").innerHTML = items.filter(function (i) { return i.k !== "email"; }).map(function (i) { return '<a href="' + esc(i.href) + '" target="_blank" rel="noopener">' + i.label + '</a>'; }).join("") + '<a href="tos.html">TOS</a><a href="faq.html">FAQ</a>';
+    $("footLinks").innerHTML = items.filter(function (i) { return i.k !== "email"; }).map(function (i) { return '<a href="' + esc(i.href) + '" target="_blank" rel="noopener">' + i.label + '</a>'; }).join("") + '<a href="/tos">TOS</a><a href="/faq">FAQ</a>';
     document.querySelectorAll("[data-name]").forEach(function (el) { el.textContent = nameOf(el.dataset.name); });
   }
 
@@ -215,7 +218,7 @@
     $("estEdit").textContent = e ? "Edit" : "Build one";
   }
 
-  // Price page opened from a team card: prices.html#artist-a / -b / -x
+  // Price page opened from a team card: /prices#artist-a / -b / -x
   function applyPick() {
     var m = /^#artist-([abx])$/.exec(location.hash || "");
     if (!m) return;
@@ -263,6 +266,15 @@
     btn.disabled = false; btn.textContent = "Send request";
   });
   if ($("formAgain")) $("formAgain").addEventListener("click", function () { $("formDone").classList.add("hidden"); form.classList.remove("hidden"); });
+
+  /* ---------- mobile menu ---------- */
+  var navBtn = $("navToggle");
+  if (navBtn) navBtn.addEventListener("click", function () {
+    var nav = navBtn.closest(".nav"), open = !nav.classList.contains("open");
+    nav.classList.toggle("open", open);
+    navBtn.setAttribute("aria-expanded", String(open));
+    navBtn.textContent = open ? "Close" : "Menu";
+  });
 
   function renderAll() {
     applyPick();

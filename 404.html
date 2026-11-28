@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Page not found · Enigma Studio</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="css/site.css">
+<script>try{var t=localStorage.getItem("enigma-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script>
+/* Page slide direction: compare the nav position of the page we came from and the one we are on. */
+(function(){var O={"":0,"index":0,"team":1,"gallery":2,"gallery-illustrations":2.5,"prices":3,"queue":4,"toggles":5,"tos":6,"faq":7,"contact":8};
+function pos(u){try{var p=new URL(u).pathname.split("/").pop().replace(/\.html$/,"");return p in O?O[p]:null}catch(e){return null}}
+addEventListener("pagereveal",function(e){var vt=e.viewTransition;if(!vt)return;var a=window.navigation&&navigation.activation;
+var f=a&&a.from?pos(a.from.url):null,t=a&&a.entry?pos(a.entry.url):null;
+if(f===null||t===null||f===t){vt.skipTransition();return}vt.types.add(t>f?"forward":"back")});})();
+</script>
+</head>
+<body data-page="404">
+
+<header class="wrap">
+  <nav class="nav" aria-label="Main">
+    <div class="nav-links" id="navLinks"><a href="/">HOME</a><a href="/team">OUR TEAM</a><a href="/gallery">GALLERY</a><a href="/prices">PRICE</a><a href="/queue">QUEUE</a><a href="/toggles">TOGGLES</a><a href="/tos">TOS</a><a href="/faq">FAQ</a><a href="/contact">CONTACT US</a></div>
+    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <a class="logo" href="/"><b>ENIGMA<br>STUDIO</b><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i></a>
+  </nav>
+</header>
+
+<main>
+  <section class="wrap section" style="min-height:52vh;align-content:center">
+    <div style="display:grid;gap:8px"><span class="eyebrow">◇ 404</span><h1 class="h2">File not found</h1></div>
+    <p class="lead">This page is missing or has moved. Try the gallery, or head back to the start.</p>
+    <div class="hero-cta"><a class="btn btn-solid" href="/">Back to home</a><a class="btn" href="/gallery">See the gallery</a></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span style="display:flex;align-items:center;gap:12px"><b style="color:var(--hi);letter-spacing:.04em">ENIGMA STUDIO</b><span class="mono" style="font-size:12px">© <span id="year">2026</span> · All rights reserved</span></span>
+    <nav aria-label="Footer" id="footLinks"></nav>
+  </div>
+</footer>
+
+<a class="float-contact" href="/contact" aria-label="Contact us"><i><img src="assets/contact-icon.webp" alt="" width="256" height="256"></i><b>CONTACT US</b></a>
+<button type="button" class="theme-btn" id="themeBtn" aria-label="Switch to light theme"></button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/config.js"></script>
+<script src="/api/config"></script>
+<script src="js/content-default.js"></script>
+<script src="js/store.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
