@@ -109,9 +109,10 @@
 
   // Always shown after the FAQ from the admin panel (edit here, not in /admin)
   var FIXED_FAQ = [
-    { q: "How many revisions do I get?", a: "Sketch: as many as you need.\nColor: up to 3 major revisions.\nRigging: as many as you need." },
+    { q: "How many revisions do I get?", a: "Sketch: as many as you need.\nColor: up to 3 major revisions. Extra ones are priced by discussion.\nRigging: as many as you need." },
     { q: "Which files come with a Live2D model?", a: "You get the .moc3 runtime files, ready to load. The .cmo3 working file is available for an extra 20% of the price." },
     { q: "Which apps does the model work with?", a: "Every model is tested in VTube Studio before delivery." },
+    { q: "Can I use the art commercially?", a: "Yes. Merch, ads, covers, and other commercial use cost an extra 50% of the price. Personal use and monetized streaming are already included." },
     { q: "Do I have to credit the artist? Can I edit the model?", a: "Credit belongs to you, so naming the artist is optional. You're also free to modify the model." }
   ];
 

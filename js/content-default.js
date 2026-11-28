@@ -113,7 +113,7 @@ window.ENIGMA_DEFAULT = {
   tos: [
     { title: "PAYMENT", body: "PayPal invoice in USD. 50% upfront, the rest before final files. Live2D can be split into 3 payments." },
     { title: "REFUNDS", body: "Full refund before the sketch. 50% after sketch approval. No refund once line art or rigging has started." },
-    { title: "USAGE", body: "Personal use and monetized streaming are included. Merch, ads, and covers need a commercial license." },
+    { title: "USAGE", body: "Personal use and monetized streaming are included. Merch, ads, and covers need a commercial license (+50% of the price)." },
     { title: "WON'T DRAW", body: "NSFW, real people, hateful imagery, full mecha, or finishing AI-generated art." }
   ],
   faq: [

@@ -95,4 +95,4 @@ insert into public.admins (email) values ('admin2@contoh.com');
 - Semua link internal memakai alamat bersih (`/team`, `/prices`, ...). `cleanUrls` di `vercel.json` mengalihkan alamat lama `.html` ke alamat bersih.
 - Alamat lengkap `https://enigma-iota-bice.vercel.app` tertulis di tag canonical, og:url, og:image (semua halaman publik), `robots.txt`, dan `sitemap.xml`. Kalau nanti memakai domain sendiri, ganti alamat itu di semua tempat tersebut.
 - `.vercelignore` mencegah `README.md` dan folder `supabase/` ikut tayang di web.
-- Kartu ToS REVISIONS, FILES & APPS, CREDIT & EDITS, PRIVACY, dan AI USE ditulis langsung di `tos.html`. Empat FAQ tetap (revisi, file, aplikasi, kredit) ada di `FIXED_FAQ` di `js/site.js`. Keduanya tidak bisa diubah dari panel admin.
+- Kartu ToS REVISIONS, FILES & APPS, CREDIT & EDITS, COMMERCIAL USE, PRIVACY, dan AI USE ditulis langsung di `tos.html`. Lima FAQ tetap (revisi, file, aplikasi, pemakaian komersial, kredit) ada di `FIXED_FAQ` di `js/site.js`. Keduanya tidak bisa diubah dari panel admin.
