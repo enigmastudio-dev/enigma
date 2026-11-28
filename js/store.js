@@ -23,15 +23,30 @@
     return out;
   }
 
+  // Saved copies older than DEF.contentVersion lose the keys in DEF.resetOnUpgrade,
+  // so a new price list or ToS shipped in the code replaces the old saved one.
+  function upgrade(data) {
+    var out = merge(DEF, data);
+    if ((+(data && data.contentVersion) || 1) < (+DEF.contentVersion || 1)) {
+      (DEF.resetOnUpgrade || []).forEach(function (path) {
+        var keys = path.split("."), o = out, d = DEF;
+        for (var i = 0; i < keys.length - 1; i++) { o = o[keys[i]]; d = d[keys[i]]; }
+        o[keys[keys.length - 1]] = clone(d[keys[keys.length - 1]]);
+      });
+      out.contentVersion = DEF.contentVersion;
+    }
+    return out;
+  }
+
   async function load() {
     if (client) {
       var res = await client.from("site_content").select("data, updated_at").eq("id", "main").maybeSingle();
       if (res.error) { console.warn("Supabase load failed, showing defaults:", res.error.message); return clone(DEF); }
-      return res.data && res.data.data ? merge(DEF, res.data.data) : clone(DEF);
+      return res.data && res.data.data ? upgrade(res.data.data) : clone(DEF);
     }
     try {
       var s = localStorage.getItem(LS_KEY);
-      if (s) return merge(DEF, JSON.parse(s));
+      if (s) return upgrade(JSON.parse(s));
     } catch (e) {}
     return clone(DEF);
   }

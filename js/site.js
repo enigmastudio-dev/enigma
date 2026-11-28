@@ -99,6 +99,13 @@
     }).join("");
   }
 
+  function renderPriceNotes() {
+    if (!$("priceNotes")) return;
+    $("priceNotes").innerHTML = (C.priceNotes || []).map(function (n) {
+      return '<article class="tos-card"><h3>' + esc(n.title) + '</h3><p>' + esc(n.body) + '</p></article>';
+    }).join("");
+  }
+
   function renderTos() {
     if (!$("tosGrid")) return;
     $("tosGrid").innerHTML = (C.tos || []).map(function (t) { return '<div class="tos-card"><h3>' + esc(t.title) + '</h3><p>' + esc(t.body) + '</p></div>'; }).join("");
@@ -107,18 +114,9 @@
     if (u) $("tosLink").href = u;
   }
 
-  // Always shown after the FAQ from the admin panel (edit here, not in /admin)
-  var FIXED_FAQ = [
-    { q: "How many revisions do I get?", a: "Sketch: as many as you need.\nColor: up to 3 major revisions. Extra ones are priced by discussion.\nRigging: as many as you need." },
-    { q: "Which files come with a Live2D model?", a: "You get the .moc3 runtime files, ready to load. The .cmo3 working file is available for an extra 20% of the price." },
-    { q: "Which apps does the model work with?", a: "Every model is tested in VTube Studio before delivery." },
-    { q: "Can I use the art commercially?", a: "Yes. Merch, ads, covers, and other commercial use cost an extra 50% of the price. Personal use and monetized streaming are already included." },
-    { q: "Do I have to credit the artist? Can I edit the model?", a: "Credit belongs to you, so naming the artist is optional. You're also free to modify the model." }
-  ];
-
   function renderFaq() {
     if (!$("faqList")) return;
-    $("faqList").innerHTML = (C.faq || []).concat(FIXED_FAQ).map(function (f, i) {
+    $("faqList").innerHTML = (C.faq || []).map(function (f, i) {
       var open = st.faq === i + 1;
       return '<div class="faq-item"><button type="button" aria-expanded="' + open + '" data-faq="' + (i + 1) + '">' + esc(f.q) + '<span aria-hidden="true">' + (open ? "−" : "+") + '</span></button>' + (open ? "<p>" + esc(f.a) + "</p>" : "") + '</div>';
     }).join("");
@@ -145,40 +143,40 @@
   /* ---------- price builder ---------- */
   function tiersFor(svc) {
     var P = C.prices;
-    if (svc === "ill" || svc === "model") return P[svc].map(function (t) { return { name: t.name, desc: t.desc, a: +t.a, b: +t.b, days: { a: t.daysA, b: t.daysB } }; });
-    if (svc === "rig") return P.rig.map(function (t) { return { name: t.name, desc: t.desc, a: +t.price, b: +t.price, days: { a: t.days, b: t.days } }; });
-    var disc = Math.max(0, Math.min(90, +P.bundleDiscount || 0)) / 100;
-    return P.pkg.map(function (p, i) {
-      var m = P.model[i] || P.model[P.model.length - 1], r = P.rig[i] || P.rig[P.rig.length - 1];
-      if (!m || !r) return null;
-      var fa = +m.a + +r.price, fb = +m.b + +r.price;
-      return { name: p.name, desc: p.desc, a: Math.round(fa * (1 - disc) / 5) * 5, b: Math.round(fb * (1 - disc) / 5) * 5, full: { a: fa, b: fb }, days: { a: p.daysA, b: p.daysB } };
-    }).filter(Boolean);
+    return (P[svc] || []).map(function (t, i) {
+      var o = { name: t.name, desc: t.desc, price: +t.price || 0, days: t.days || "" };
+      if (svc === "pkg") {   // what the same tier costs when art and rig are booked separately
+        var m = P.model[i], r = P.rig[i];
+        if (m && r) o.separate = (+m.price || 0) + (+r.price || 0);
+      }
+      return o;
+    });
   }
 
   function renderBuilder() {
     if (!$("svcOpts")) return;
     var P = C.prices;
+    var bestSave = Math.max.apply(null, [0].concat(tiersFor("pkg").map(function (t) { return t.separate ? t.separate - t.price : 0; })));
     var SV = [
-      { id: "ill", name: "Illustration", desc: "Bust-up to full body, by " + title(nameOf("a")) + " or " + title(nameOf("b")) },
-      { id: "pkg", name: "Live2D full package", desc: "Model art by your artist, rigged by " + title(nameOf("x")), badge: (+P.bundleDiscount ? "Save " + P.bundleDiscount + "%" : "") },
-      { id: "model", name: "Model art only", desc: "Rig-ready layered art for your own rigger" },
-      { id: "rig", name: "Rig only", desc: title(nameOf("x")) + " rigs the layered PSD you already have" }
+      { id: "ill", name: "Anime illustration", desc: "Fully rendered character art, bust up to full body or chibi" },
+      { id: "pkg", name: "Art + rig bundle", desc: "Model art by your artist, rigged by " + title(nameOf("x")) + ", ready for your debut", badge: bestSave > 0 ? "Save up to " + money(bestSave) : "" },
+      { id: "model", name: "VTuber model art", desc: "Rig-ready separated PSD + PNG for your own rigger" },
+      { id: "rig", name: "Live2D rigging", desc: title(nameOf("x")) + " rigs the separated PSD you already have" }
     ];
-    var isRig = st.svc === "rig", key = isRig ? "a" : st.art;
+    var isRig = st.svc === "rig", key = isRig ? "x" : st.art;
     var tiers = tiersFor(st.svc);
-    if (!tiers.length) tiers = [{ name: "—", desc: "", a: 0, b: 0, days: { a: "", b: "" } }];
-    var ti = Math.min(st.tier, tiers.length - 1), tier = tiers[ti], base = tier[key];
+    if (!tiers.length) tiers = [{ name: "—", desc: "", price: 0, days: "" }];
+    var ti = Math.min(st.tier, tiers.length - 1), tier = tiers[ti], base = tier.price;
 
     $("svcOpts").innerHTML = SV.map(function (s) {
-      var t = tiersFor(s.id), from = t.length ? Math.min.apply(null, t.map(function (x) { return Math.min(x.a, x.b); })) : 0;
+      var t = tiersFor(s.id), from = t.length ? Math.min.apply(null, t.map(function (x) { return x.price; })) : 0;
       return '<button type="button" class="opt" data-svc="' + s.id + '" aria-pressed="' + (s.id === st.svc) + '"><span class="row"><span class="name">' + s.name + '</span><span class="radio"></span></span><span class="desc">' + esc(s.desc) + '</span><span class="row" style="justify-content:flex-start;margin-top:4px"><span class="mono" style="font-size:13px">from ' + money(from) + '</span>' + (s.badge ? '<span class="badge">' + esc(s.badge) + '</span>' : "") + '</span></button>';
     }).join("");
 
     $("step2Title").textContent = "02 · " + (isRig ? "RIGGER" : "ARTIST");
     var x = C.team.x;
     if (isRig) {
-      $("step2").innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:18px;padding:18px;border-radius:0 0 24px 0;border:2px solid var(--c-x);background:var(--teal-bg)"><div style="flex:1 1 200px;display:grid;gap:6px;align-content:start"><span style="font-family:var(--f-hud);font-weight:600;font-size:11px;letter-spacing:.16em;color:var(--teal-text)">YOUR RIGGER</span><span class="member-name" style="font-size:26px">' + esc(x.name) + '</span><span style="font-size:14px;color:var(--muted)">' + esc(x.role) + ' · ' + esc(x.slots) + '</span></div><div style="flex:2 1 280px;display:grid;gap:8px;align-content:start"><b style="font-size:14px">Please send with your request</b><ul style="margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px;line-height:1.5;color:var(--soft)"><li>Layered PSD, every moving part on its own layer</li><li>Canvas of at least 4000 px tall</li><li>Closed eyes, open mouth, and back hair drawn in full</li><li>Expression and toggle references, if you want them</li></ul></div></div>';
+      $("step2").innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:18px;padding:18px;border-radius:0 0 24px 0;border:2px solid var(--c-x);background:var(--teal-bg)"><div style="flex:1 1 200px;display:grid;gap:6px;align-content:start"><span style="font-family:var(--f-hud);font-weight:600;font-size:11px;letter-spacing:.16em;color:var(--teal-text)">YOUR RIGGER</span><span class="member-name" style="font-size:26px">' + esc(x.name) + '</span><span style="font-size:14px;color:var(--muted)">' + esc(x.role) + ' · ' + esc(x.slots) + '</span></div><div style="flex:2 1 280px;display:grid;gap:8px;align-content:start"><b style="font-size:14px">Please send with your request</b><ul style="margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px;line-height:1.5;color:var(--soft)"><li>Separated PSD, every moving part on its own layer (repairs are quoted after review)</li><li>Canvas of at least 4000 px tall</li><li>Closed eyes, open mouth, and back hair drawn in full</li><li>Expression and toggle references, if you want them</li></ul></div></div>';
     } else {
       $("step2").innerHTML = '<div class="opt-grid">' + ["a", "b"].map(function (k) {
         var m = C.team[k];
@@ -187,7 +185,7 @@
     }
 
     $("tierOpts").innerHTML = tiers.map(function (t, i) {
-      return '<button type="button" class="opt tier" data-tier="' + i + '" aria-pressed="' + (i === ti) + '"><span class="radio"></span><span class="tmain"><span class="name">' + esc(t.name) + '</span><span class="desc">' + esc(t.desc) + '</span></span><span class="tprice"><b>' + money(t[key]) + '</b><small>' + esc(t.days[key]) + '</small></span></button>';
+      return '<button type="button" class="opt tier" data-tier="' + i + '" aria-pressed="' + (i === ti) + '"><span class="radio"></span><span class="tmain"><span class="name">' + esc(t.name) + '</span><span class="desc">' + esc(t.desc) + '</span></span><span class="tprice"><b>' + money(t.price) + '</b><small>' + esc(t.days) + '</small></span></button>';
     }).join("");
 
     var total = base, lines = [];
@@ -205,22 +203,19 @@
     var svcName = SV.filter(function (s) { return s.id === st.svc; })[0].name;
     $("sumSvc").textContent = svcName;
     $("sumCode").textContent = { ill: "ILL", pkg: "L2D", model: "ART", rig: "RIG" }[st.svc] + "-" + (isRig ? "XY" : String(nameOf(key)).slice(0, 2).toUpperCase()) + "-0" + (ti + 1);
-    var html = '<div class="line"><span>' + esc(tier.name) + (st.svc === "pkg" ? " (art + rig " + money(tier.full[key]) + ")" : "") + '</span><span class="mono">' + money(st.svc === "pkg" ? tier.full[key] : base) + '</span></div>';
-    if (st.svc === "pkg") html += '<div class="line gold"><span>Bundle saving (' + esc(P.bundleDiscount) + '%)</span><span class="mono">−' + money(tier.full[key] - base) + '</span></div>';
+    var sep = st.svc === "pkg" && tier.separate > base ? tier.separate : 0;
+    var html = '<div class="line"><span>' + esc(tier.name) + (sep ? " (booked separately " + money(sep) + ")" : "") + '</span><span class="mono">' + money(sep || base) + '</span></div>';
+    if (sep) html += '<div class="line gold"><span>Bundle saving</span><span class="mono">−' + money(sep - base) + '</span></div>';
     lines.forEach(function (l) { html += '<div class="line muted"><span>' + esc(l.label) + '</span><span class="mono">' + l.price + '</span></div>'; });
     html += '<div class="line muted"><span>Character File card</span><span class="mono gold">Free</span></div>';
     $("sumLines").innerHTML = html;
     $("sumTotal").textContent = money(total);
-    $("sumDays").textContent = tier.days[key] || "";
-    $("sumPay").textContent = total < 100 ? "Paid in full upfront" : st.svc === "ill" ? "50% now · 50% before files" : "3 payments of ~" + money(Math.ceil(total / 3));
-    // Revisions and delivered files (studio policy, Nov 2026)
-    if ($("sumRev")) $("sumRev").textContent = { ill: "Unlimited at sketch, 3 major at color", model: "Unlimited at sketch, 3 major at color", rig: "Unlimited during rigging", pkg: "Unlimited at sketch and rigging, 3 major at color" }[st.svc];
-    if ($("sumFilesRow")) {
-      var rigged = st.svc === "rig" || st.svc === "pkg";
-      $("sumFilesRow").classList.toggle("hidden", !rigged);
-      $("sumFiles").textContent = ".moc3 for VTube Studio. .cmo3 +20%";
-    }
-    var who = isRig ? title(nameOf("x")) : title(nameOf(key)) + (st.svc === "pkg" ? " × " + title(nameOf("x")) : "");
+    $("sumDays").textContent = tier.days || "";
+    $("sumPay").textContent = "50% now, " + money(Math.ceil(total / 2)) + " before files";
+    // Revisions and delivered files (ToS clauses 2 and 6)
+    if ($("sumRev")) $("sumRev").textContent = "2 major at sketch, 2 corrections";
+    if ($("sumFiles")) $("sumFiles").textContent = { ill: "Full-res PNG", model: "Separated PSD + PNG", rig: ".moc3, textures, VTS files", pkg: "PSD, PNG, .moc3, VTS files" }[st.svc];
+    var who = isRig ? title(nameOf("x")) : title(nameOf(key)) + (st.svc === "pkg" ? " + " + title(nameOf("x")) : "");
     var summary = tier.name + " · " + who + " · est. " + money(total);
     writeEst({ summary: summary, estimate: svcName + " | " + summary + (lines.length ? " | add-ons: " + lines.map(function (l) { return l.label; }).join(", ") : "") });
   }
@@ -249,7 +244,11 @@
     if (t.dataset.svc) { st.svc = t.dataset.svc; st.tier = st.svc === "ill" ? 1 : 0; st.add = {}; renderBuilder(); }
     else if (t.dataset.art) { st.art = t.dataset.art; renderBuilder(); }
     else if (t.dataset.tier) { st.tier = +t.dataset.tier; renderBuilder(); }
-    else if (t.dataset.add) { st.add[t.dataset.add] = !st.add[t.dataset.add]; renderBuilder(); }
+    else if (t.dataset.add) {
+      var ai = +t.dataset.add, list = C.addons[st.svc] || [], on = !st.add[ai];
+      if (on && list[ai] && list[ai].group) list.forEach(function (a, i) { if (i !== ai && a.group === list[ai].group) st.add[i] = false; });
+      st.add[ai] = on; renderBuilder();
+    }
     else if (t.dataset.faq) { var n = +t.dataset.faq; st.faq = st.faq === n ? 0 : n; renderFaq(); }
   });
   if ($("findNo")) $("findNo").addEventListener("input", function () { if (C) renderQueue(); });
@@ -294,7 +293,7 @@
 
   function renderAll() {
     applyPick();
-    renderStatus(); renderTeam(); renderGallery(); renderBuilder(); renderQueue(); renderToggles(); renderTos(); renderFaq(); renderContact(); renderEstimate();
+    renderStatus(); renderTeam(); renderGallery(); renderBuilder(); renderQueue(); renderToggles(); renderPriceNotes(); renderTos(); renderFaq(); renderContact(); renderEstimate();
   }
 
   $("year").textContent = new Date().getFullYear();

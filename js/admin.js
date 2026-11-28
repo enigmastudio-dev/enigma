@@ -40,10 +40,9 @@
     }).join("") + '<button type="button" class="add" data-act="add" data-path="' + path + '" data-tpl="' + tpl + '">+ ' + addLabel + '</button></div>';
   }
   var TPL = {
-    tierAB: { name: "Tier baru", desc: "", a: 0, b: 0, daysA: "", daysB: "" },
-    rig: { name: "Rig baru", desc: "", price: 0, days: "" },
-    pkg: { name: "Paket baru", desc: "", daysA: "", daysB: "" },
-    addon: { label: "Add-on baru", type: "flat", value: 0 },
+    tier: { name: "Tier baru", desc: "", price: 0, days: "" },
+    note: { title: "", body: "" },
+    addon: { label: "Add-on baru", type: "flat", value: 0, group: "" },
     stage: { name: "TAHAP BARU", items: [] },
     qitem: { no: "#", what: "", artist: "a" },
     price: { label: "", price: "" },
@@ -86,18 +85,18 @@
       }).join("");
     },
     harga: function () {
-      var A = tName("a"), B = tName("b");
-      var tierAB = function (p) { return '<div class="grid2">' + inp("Nama", p + ".name") + inp("Harga " + A, p + ".a", { num: true }) + inp("Harga " + B, p + ".b", { num: true }) + inp("Durasi " + A, p + ".daysA") + inp("Durasi " + B, p + ".daysB") + '</div>' + area("Deskripsi", p + ".desc", 2); };
-      return '<h2>Harga</h2><p class="hint">Harga paket Live2D dihitung otomatis: (model art + rig dengan urutan yang sama) dikurangi diskon bundle.</p>' +
-        '<div class="box"><h3>Umum</h3><div class="grid2">' + inp("Simbol mata uang", "prices.currency") + inp("Diskon bundle paket (%)", "prices.bundleDiscount", { num: true }) + '</div></div>' +
-        '<div class="box"><h3>Ilustrasi</h3>' + list("prices.ill", tierAB, "tierAB", "Tambah tier ilustrasi") + '</div>' +
-        '<div class="box"><h3>Model art (Live2D)</h3>' + list("prices.model", tierAB, "tierAB", "Tambah tier model art") + '</div>' +
-        '<div class="box"><h3>Rig only (' + esc(tName("x")) + ')</h3>' + list("prices.rig", function (p) { return '<div class="grid2">' + inp("Nama", p + ".name") + inp("Harga", p + ".price", { num: true }) + inp("Durasi", p + ".days") + '</div>' + area("Deskripsi", p + ".desc", 2); }, "rig", "Tambah tier rig") + '</div>' +
-        '<div class="box"><h3>Paket Live2D</h3><p class="hint">Paket ke-1 = model art ke-1 + rig ke-1, dan seterusnya.</p>' + list("prices.pkg", function (p) { return '<div class="grid2">' + inp("Nama", p + ".name") + inp("Durasi " + A, p + ".daysA") + inp("Durasi " + B, p + ".daysB") + '</div>' + area("Deskripsi", p + ".desc", 2); }, "pkg", "Tambah paket") + '</div>';
+      var tier = function (p) { return '<div class="grid2">' + inp("Nama", p + ".name") + inp("Harga", p + ".price", { num: true }) + inp("Durasi", p + ".days") + '</div>' + area("Cakupan", p + ".desc", 2); };
+      return '<h2>Harga</h2><p class="hint">Semua artist memakai harga yang sama. Hemat bundle dihitung otomatis dari model art + rig dengan urutan yang sama.</p>' +
+        '<div class="box"><h3>Umum</h3><div class="grid2">' + inp("Simbol mata uang", "prices.currency") + inp("Metode bayar", "prices.payment") + '</div></div>' +
+        '<div class="box"><h3>Anime illustration</h3>' + list("prices.ill", tier, "tier", "Tambah tier") + '</div>' +
+        '<div class="box"><h3>VTuber model art</h3>' + list("prices.model", tier, "tier", "Tambah tier") + '</div>' +
+        '<div class="box"><h3>Live2D rigging (' + esc(tName("x")) + ')</h3>' + list("prices.rig", tier, "tier", "Tambah tier") + '</div>' +
+        '<div class="box"><h3>Art + rig bundle</h3>' + list("prices.pkg", tier, "tier", "Tambah bundle") + '</div>' +
+        '<div class="box"><h3>Kartu "Before you book" di halaman Price</h3>' + list("priceNotes", function (p) { return inp("Judul", p + ".title") + area("Isi", p + ".body", 3); }, "note", "Tambah kartu") + '</div>';
     },
     addons: function () {
-      var row = function (p) { return '<div class="grid2">' + inp("Nama", p + ".label") + sel("Jenis", p + ".type", [["flat", "Harga tetap"], ["pct", "Persen dari tier"]]) + inp("Nilai", p + ".value", { num: true }) + '</div>'; };
-      return '<h2>Add-on</h2>' + [["ill", "Ilustrasi"], ["pkg", "Live2D full package"], ["model", "Model art only"], ["rig", "Rig only"]].map(function (s) {
+      var row = function (p) { return '<div class="grid2">' + inp("Nama", p + ".label") + sel("Jenis", p + ".type", [["flat", "Harga tetap"], ["pct", "Persen dari tier"]]) + inp("Nilai", p + ".value", { num: true }) + inp("Grup (opsional, pilih salah satu)", p + ".group", { ph: "rush" }) + '</div>'; };
+      return '<h2>Add-on</h2><p class="hint">Add-on dengan grup yang sama tidak bisa dipilih bersamaan, misalnya dua pilihan rush.</p>' + [["ill", "Anime illustration"], ["pkg", "Art + rig bundle"], ["model", "VTuber model art"], ["rig", "Live2D rigging"]].map(function (s) {
         return '<div class="box"><h3>' + s[1] + '</h3>' + list("addons." + s[0], row, "addon", "Tambah add-on") + '</div>';
       }).join("");
     },
