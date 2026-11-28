@@ -22,6 +22,7 @@ window.ENIGMA_DEFAULT = {
   team: {
     a: { name: "DYRAVE", role: "Illustrator", slots: "2 of 3 open", bio: "Bright cel-shaded anime with pastel color and crisp line art. Shines on avatars, emotes, and cute VTuber models.", tags: "CEL SHADING, PASTEL, EXPRESSIVE", style: "Soft cel-shaded anime, pastel color" },
     b: { name: "AXNONS", role: "Illustrator", slots: "1 of 2 open", bio: "Painterly rendering with deep shadows and rim light, close to gacha splash art. Rich detail for dark fantasy designs.", tags: "PAINTERLY, DRAMATIC LIGHT, FANTASY", style: "Painterly, dramatic light and shadow" },
+    c: { name: "MANDALU", role: "Illustrator", slots: "Ask about slots", bio: "Cel-shaded anime with dramatic lighting and dynamic, complex poses. Made for action shots and characters full of attitude.", tags: "CEL SHADE, DRAMATIC LIGHT, COMPLEX POSE", style: "Cel shade, dramatic light, complex poses" },
     x: { name: "XYN", role: "Live2D Rigger", slots: "1 of 2 open", bio: "Live2D Cubism rigging with natural hair physics and expressive tracking. Rigs our artists' models, or your own art.", tags: "LIVE2D, VTUBE STUDIO, PHYSICS" }
   },
   // Price list, ToS and turnaround from the Nov 2026 draft price list (PDF).

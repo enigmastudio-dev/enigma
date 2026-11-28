@@ -8,7 +8,7 @@
   var writeEst = function (v) { try { sessionStorage.setItem(EST_KEY, JSON.stringify(v)); } catch (e) {} };
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
   var safeUrl = function (u) { u = String(u || "").trim(); return /^(https?:|mailto:)/i.test(u) ? u : ""; };
-  var COLOR = { a: "var(--c-a)", b: "var(--c-b)", x: "var(--c-x)" };
+  var COLOR = { a: "var(--c-a)", b: "var(--c-b)", c: "var(--c-c)", x: "var(--c-x)" };
   var title = function (s) { s = String(s || ""); return s.charAt(0) + s.slice(1).toLowerCase(); };
   var money = function (n) { return (C.prices.currency || "$") + Number(n || 0).toLocaleString("en-US"); };
   var tags = function (s) { return String(s || "").split(",").map(function (t) { return t.trim(); }).filter(Boolean); };
@@ -44,8 +44,8 @@
 
   function renderTeam() {
     if (!$("teamGrid")) return;
-    var files = { a: "◇ FILE A · ILLUSTRATOR", b: "◇ FILE B · ILLUSTRATOR", x: "◇ FILE C · LIVE2D RIGGER" };
-    $("teamGrid").innerHTML = ["a", "b", "x"].map(function (k) {
+    var files = { a: "◇ FILE A", b: "◇ FILE B", c: "◇ FILE C", x: "◇ FILE D" };
+    $("teamGrid").innerHTML = ["a", "b", "c", "x"].map(function (k) {
       var m = C.team[k], n = String(m.name || "");
       return '<article class="member"><div class="member-art" style="background:var(--tint-' + k + ')">' +
         '<div class="ph">' + (k === "x" ? "RIG DEMO CLIP" : esc(n) + " STYLE SAMPLE") + '</div>' +
@@ -54,7 +54,7 @@
         '<span class="member-role">' + esc(m.role) + '</span></div>' +
         '<p class="member-bio">' + esc(m.bio) + '</p>' +
         '<div class="tags">' + tags(m.tags).map(function (t) { return "<span>" + esc(t) + "</span>"; }).join("") + '</div>' +
-        '<a class="btn btn-solid" style="border-radius:12px" href="/prices#artist-' + k + '">' + (k === "x" ? "Price a rig with " : "Price a piece by ") + esc(title(n)) + '</a></div></article>';
+        '<a class="btn btn-solid" style="border-radius:12px" href="/prices#artist-' + k + '">' + (k === "x" ? "Price a rig with " : "Price with ") + esc(title(n)) + '</a></div></article>';
     }).join("");
   }
 
@@ -178,7 +178,7 @@
     if (isRig) {
       $("step2").innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:18px;padding:18px;border-radius:0 0 24px 0;border:2px solid var(--c-x);background:var(--teal-bg)"><div style="flex:1 1 200px;display:grid;gap:6px;align-content:start"><span style="font-family:var(--f-hud);font-weight:600;font-size:11px;letter-spacing:.16em;color:var(--teal-text)">YOUR RIGGER</span><span class="member-name" style="font-size:26px">' + esc(x.name) + '</span><span style="font-size:14px;color:var(--muted)">' + esc(x.role) + ' · ' + esc(x.slots) + '</span></div><div style="flex:2 1 280px;display:grid;gap:8px;align-content:start"><b style="font-size:14px">Please send with your request</b><ul style="margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px;line-height:1.5;color:var(--soft)"><li>Separated PSD, every moving part on its own layer (repairs are quoted after review)</li><li>Canvas of at least 4000 px tall</li><li>Closed eyes, open mouth, and back hair drawn in full</li><li>Expression and toggle references, if you want them</li></ul></div></div>';
     } else {
-      $("step2").innerHTML = '<div class="opt-grid">' + ["a", "b"].map(function (k) {
+      $("step2").innerHTML = '<div class="opt-grid">' + ["a", "b", "c"].map(function (k) {
         var m = C.team[k];
         return '<button type="button" class="opt artist-opt" style="--sel:' + COLOR[k] + '" data-art="' + k + '" aria-pressed="' + (k === st.art) + '"><span class="swatch"></span><span class="in"><span class="row"><span class="an">' + esc(m.name) + '</span><span class="radio"></span></span><span class="desc">' + esc(m.style || m.role) + '</span><span style="font-size:12.5px;color:var(--green);font-weight:600">' + esc(m.slots) + '</span></span></button>';
       }).join("") + '</div>' + (st.svc === "pkg" ? '<div class="callout" style="margin-top:12px"><i class="dot" style="background:var(--c-x)"></i><span><strong>Rigged by ' + esc(title(x.name)) + '.</strong> Your artist designs the model with rigging in mind, then hands the PSD straight to ' + esc(title(x.name)) + '.</span></div>' : "");
@@ -229,9 +229,9 @@
     $("estEdit").textContent = e ? "Edit" : "Build one";
   }
 
-  // Price page opened from a team card: /prices#artist-a / -b / -x
+  // Price page opened from a team card: /prices#artist-a / -b / -c / -x
   function applyPick() {
-    var m = /^#artist-([abx])$/.exec(location.hash || "");
+    var m = /^#artist-([abcx])$/.exec(location.hash || "");
     if (!m) return;
     if (m[1] === "x") { st.svc = "rig"; st.tier = 0; st.add = {}; }
     else { st.art = m[1]; st.svc = "ill"; st.tier = 1; }

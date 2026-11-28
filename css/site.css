@@ -9,8 +9,8 @@
   --inv:#FFFFFF; --on-inv:#111015; --inv-muted:#5F5B6E; --inv-line:#E4E1EB; --inv-chip:#F1F0F5; --inv-text2:#4A4658; --inv-gold:#8A5A00; --inv-dash:#C9C5D4;
   --gold:#E2B65A; --green:#7BE3A8; --green-bg:rgba(78,208,138,.14); --red:#FF9AA8; --red-bg:rgba(224,86,107,.16);
   --teal-bg:rgba(60,193,179,.10); --teal-text:#9BE7DE;
-  --c-a:#8FA6F5; --c-b:#E0566B; --c-x:#3CC1B3;
-  --tint-a:linear-gradient(180deg,#2A3150,#18161E); --tint-b:linear-gradient(180deg,#3A1820,#18161E); --tint-x:linear-gradient(180deg,#123A37,#18161E);
+  --c-a:#8FA6F5; --c-b:#E0566B; --c-c:#F0975A; --c-x:#3CC1B3;
+  --tint-a:linear-gradient(180deg,#2A3150,#18161E); --tint-b:linear-gradient(180deg,#3A1820,#18161E); --tint-c:linear-gradient(180deg,#3A2516,#18161E); --tint-x:linear-gradient(180deg,#123A37,#18161E);
   /* Type: Space Age only for the studio name (hero title, header logo, footer). Montserrat for everything else. */
   --f-title:"Space Age","Montserrat",sans-serif;
   --f-body:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -28,8 +28,8 @@
   --inv:#17151F; --on-inv:#FFFFFF; --inv-muted:#A9A4BA; --inv-line:#2E2A3B; --inv-chip:#26212F; --inv-text2:#CFCBDB; --inv-gold:#F3D58C; --inv-dash:#3A3648;
   --gold:#8A5A00; --green:#17603C; --green-bg:#E2F2E8; --red:#8A2433; --red-bg:#F8E3E6;
   --teal-bg:#E6F4F2; --teal-text:#0E5E59;
-  --c-a:#4F6FE0; --c-b:#B3263A; --c-x:#12807A;
-  --tint-a:linear-gradient(180deg,#E3E8FB,#FFFFFF); --tint-b:linear-gradient(180deg,#F8E3E6,#FFFFFF); --tint-x:linear-gradient(180deg,#DDF1EE,#FFFFFF);
+  --c-a:#4F6FE0; --c-b:#B3263A; --c-c:#B4531A; --c-x:#12807A;
+  --tint-a:linear-gradient(180deg,#E3E8FB,#FFFFFF); --tint-b:linear-gradient(180deg,#F8E3E6,#FFFFFF); --tint-c:linear-gradient(180deg,#FBE8DA,#FFFFFF); --tint-x:linear-gradient(180deg,#DDF1EE,#FFFFFF);
   color-scheme:light;
 }
 
@@ -100,13 +100,14 @@ button,input,select,textarea{font:inherit}
 .explore-card i{position:absolute;right:24px;bottom:16px;font-style:normal;font-size:22px;color:var(--accent-text)}
 
 /* team */
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
-.member{border:1px solid var(--border);border-radius:0 0 56px 0;background:var(--card);overflow:hidden;display:grid;align-content:start}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.member{border:1px solid var(--border);border-radius:0 0 56px 0;background:var(--card);overflow:hidden;display:grid;align-content:start;display:flex;flex-direction:column}
 .member-art{position:relative;aspect-ratio:4/3;overflow:hidden}
 .member-art .ph{position:absolute;left:22%;right:22%;top:10%;bottom:0;border:2px dashed var(--dash);border-bottom:0;border-radius:200px 200px 0 0;display:grid;place-items:center;text-align:center;font-family:var(--f-hud);font-weight:600;font-size:12px;letter-spacing:.14em;color:var(--soft2)}
 .member-art .file{position:absolute;left:16px;top:16px;background:var(--inv);color:var(--on-inv);font-family:var(--f-hud);font-weight:700;font-size:12px;letter-spacing:.16em;padding:4px 8px}
 .member-art .slots{position:absolute;right:16px;top:16px;padding:4px 10px;border-radius:999px;background:var(--green-bg);color:var(--green);font-size:12px;font-weight:600}
-.member-body{padding:20px 24px 24px;display:grid;gap:10px}
+.member-body{padding:20px 24px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.member-body > .btn{margin-top:auto}
 .member-name{font-family:var(--f-body);font-weight:700;font-size:28px;line-height:1.1;letter-spacing:.04em;color:var(--hi)}
 .member-role{font-size:14px;color:var(--muted2)}
 .member-bio{margin:0;font-size:15px;line-height:1.5;color:var(--soft)}

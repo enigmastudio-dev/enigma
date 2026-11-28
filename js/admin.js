@@ -26,7 +26,7 @@
     return '<label class="f"><span>' + label + '</span><select data-path="' + path + '">' + opts.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (String(v) === String(o[0]) ? " selected" : "") + '>' + esc(o[1]) + '</option>'; }).join("") + '</select></label>';
   }
   function chk(label, path) { return '<label class="f chk"><input type="checkbox" data-path="' + path + '" data-type="bool"' + (get(path) ? " checked" : "") + '><span>' + label + '</span></label>'; }
-  function artists(withX) { var o = [["a", tName("a")], ["b", tName("b")]]; if (withX) o.push(["x", tName("x")]); return o; }
+  function artists(withX) { var o = [["a", tName("a")], ["b", tName("b")], ["c", tName("c")]]; if (withX) o.push(["x", tName("x")]); return o; }
 
   // A list editor: each row gets move/delete tools; "add" appends a template copy.
   function list(path, rowFn, tpl, addLabel) {
@@ -78,7 +78,7 @@
         '<div class="grid2">' + inp("Teks saat buka", "status.openText") + inp("Teks saat tutup", "status.closedText") + '</div>' + area("Tagline di bawah judul", "status.tagline", 2) + '</div>';
     },
     tim: function () {
-      return '<h2>Tim</h2><p class="hint">Nama anggota otomatis dipakai di price builder, galeri, antrean, dan form.</p>' + ["a", "b", "x"].map(function (k) {
+      return '<h2>Tim</h2><p class="hint">Nama anggota otomatis dipakai di price builder, galeri, antrean, dan form.</p>' + ["a", "b", "c", "x"].map(function (k) {
         var p = "team." + k;
         return '<div class="box"><h3>' + (k === "x" ? "Rigger" : "Illustrator " + k.toUpperCase()) + '</h3><div class="grid2">' + inp("Nama", p + ".name") + inp("Peran", p + ".role") + inp("Status slot", p + ".slots", { ph: "2 of 3 open" }) +
           (k === "x" ? "" : inp("Gaya singkat (price builder)", p + ".style")) + '</div>' + area("Bio", p + ".bio", 3) + inp("Tag (pisahkan dengan koma)", p + ".tags") + '</div>';
