@@ -107,9 +107,17 @@
     if (u) $("tosLink").href = u;
   }
 
+  // Always shown after the FAQ from the admin panel (edit here, not in /admin)
+  var FIXED_FAQ = [
+    { q: "How many revisions do I get?", a: "Sketch: as many as you need.\nColor: up to 3 major revisions.\nRigging: as many as you need." },
+    { q: "Which files come with a Live2D model?", a: "You get the .moc3 runtime files, ready to load. The .cmo3 working file is available for an extra 20% of the price." },
+    { q: "Which apps does the model work with?", a: "Every model is tested in VTube Studio before delivery." },
+    { q: "Do I have to credit the artist? Can I edit the model?", a: "Credit belongs to you, so naming the artist is optional. You're also free to modify the model." }
+  ];
+
   function renderFaq() {
     if (!$("faqList")) return;
-    $("faqList").innerHTML = (C.faq || []).map(function (f, i) {
+    $("faqList").innerHTML = (C.faq || []).concat(FIXED_FAQ).map(function (f, i) {
       var open = st.faq === i + 1;
       return '<div class="faq-item"><button type="button" aria-expanded="' + open + '" data-faq="' + (i + 1) + '">' + esc(f.q) + '<span aria-hidden="true">' + (open ? "−" : "+") + '</span></button>' + (open ? "<p>" + esc(f.a) + "</p>" : "") + '</div>';
     }).join("");
@@ -204,6 +212,13 @@
     $("sumTotal").textContent = money(total);
     $("sumDays").textContent = tier.days[key] || "";
     $("sumPay").textContent = total < 100 ? "Paid in full upfront" : st.svc === "ill" ? "50% now · 50% before files" : "3 payments of ~" + money(Math.ceil(total / 3));
+    // Revisions and delivered files (studio policy, Nov 2026)
+    if ($("sumRev")) $("sumRev").textContent = { ill: "Unlimited at sketch, 3 major at color", model: "Unlimited at sketch, 3 major at color", rig: "Unlimited during rigging", pkg: "Unlimited at sketch and rigging, 3 major at color" }[st.svc];
+    if ($("sumFilesRow")) {
+      var rigged = st.svc === "rig" || st.svc === "pkg";
+      $("sumFilesRow").classList.toggle("hidden", !rigged);
+      $("sumFiles").textContent = ".moc3 for VTube Studio. .cmo3 +20%";
+    }
     var who = isRig ? title(nameOf("x")) : title(nameOf(key)) + (st.svc === "pkg" ? " × " + title(nameOf("x")) : "");
     var summary = tier.name + " · " + who + " · est. " + money(total);
     writeEst({ summary: summary, estimate: svcName + " | " + summary + (lines.length ? " | add-ons: " + lines.map(function (l) { return l.label; }).join(", ") : "") });
